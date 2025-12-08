@@ -41,6 +41,11 @@ export default function Footer() {
               <li><Link href="/career-services" className="hover:text-white transition">Career Services</Link></li>
               <li><Link href="/staffing" className="hover:text-white transition">Staffing Solutions</Link></li>
               <li><Link href="/contact" className="hover:text-white transition">Contact Us</Link></li>
+              <li>
+                <a href="https://gits5213.github.io/gits/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Training Website
+                </a>
+              </li>
             </ul>
           </div>
 

@@ -19,6 +19,7 @@ export default function Header() {
               height={40}
               className="h-10 w-auto"
               priority
+              unoptimized
             />
             <div className="flex flex-col">
               <div className="text-xl font-bold text-blue-600">GITSICS</div>

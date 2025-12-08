@@ -9,13 +9,15 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const metadata: Metadata = {
   title: "Global I Tech Solutions Inc. | IT Training, Staffing & Consulting",
   description: "Transform your career with hands-on QA/SDET training, automation frameworks, and job placement support. From Learning to Earning — Globally.",
   keywords: "QA training, SDET training, automation testing, Playwright, Selenium, Cypress, IT staffing, software testing, career training",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/icon.svg",
+    icon: `${basePath}/favicon.ico`,
+    apple: `${basePath}/icon.svg`,
   },
 };
 

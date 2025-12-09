@@ -48,7 +48,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="http://visiblehomeinspections.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-                  Visible Home Inspections
+                  Visible Home Inspections LLC
                 </a>
               </li>
               <li>

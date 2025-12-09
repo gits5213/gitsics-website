@@ -51,6 +51,11 @@ export default function Footer() {
                   Visible Home Inspections
                 </a>
               </li>
+              <li>
+                <a href="https://mdszaman.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  MDSZaman Protfolio
+                </a>
+              </li>
             </ul>
           </div>
 

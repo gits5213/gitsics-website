@@ -46,6 +46,11 @@ export default function Footer() {
                   Training Website
                 </a>
               </li>
+              <li>
+                <a href="http://visiblehomeinspections.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Visible Home Inspections
+                </a>
+              </li>
             </ul>
           </div>
 

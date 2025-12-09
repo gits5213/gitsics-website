@@ -3,7 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
+      - main
       - master
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -20,43 +22,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+          cache: 'npm'
+
       - name: Install dependencies
-        run: npm install
-      
-      - name: Build
-        run: |
-          if [ "${{ secrets.CUSTOM_DOMAIN }}" == "true" ]; then
-            echo "Building for custom domain (no basePath)"
-            CUSTOM_DOMAIN=true npm run build
-          else
-            echo "Building for GitHub Pages subdomain (with basePath)"
-            NEXT_PUBLIC_BASE_PATH=/gitsics-website npm run build
-          fi
+        run: npm ci
+
+      - name: Build with Next.js
+        run: npm run build
         env:
           NODE_ENV: production
-        continue-on-error: false
-      
-      - name: Check build output
-        run: |
-          if [ ! -d "out" ]; then
-            echo "Error: out directory not found"
-            exit 1
-          fi
-          ls -la out/
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
-      - name: Copy 404.html
-        run: |
-          cp public/404.html out/404.html || echo "404.html not found, skipping"
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -72,4 +55,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

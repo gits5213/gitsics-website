@@ -106,16 +106,44 @@ app/
 
 ## 🚀 Deployment
 
-### Build for Production
+### Automatic Deployment to GitHub Pages
+
+This project is configured for **automatic deployment** to GitHub Pages using GitHub Actions.
+
+#### Setup (One-time)
+
+1. **Enable GitHub Pages**:
+   - Go to your repository settings: `Settings` → `Pages`
+   - Under **Source**, select **GitHub Actions**
+   - Save the settings
+
+2. **Push to trigger deployment**:
+   - Push your code to the `main` or `master` branch
+   - GitHub Actions will automatically build and deploy your site
+
+#### How It Works
+
+- **Automatic**: Every push to `main`/`master` triggers a deployment
+- **Manual**: You can also trigger deployments manually from the Actions tab
+- **URL**: Your site will be available at `https://[username].github.io/gitsics-website/`
+
+#### Deployment Status
+
+- Check deployment status: Go to the **Actions** tab in your repository
+- View logs: Click on any workflow run to see detailed build logs
+- Site URL: Available in the workflow summary after successful deployment
+
+### Build for Production (Local)
 
 ```bash
 npm run build
-npm start
 ```
+
+The static files will be generated in the `out` directory.
 
 ### Deploy to Vercel
 
-The easiest way to deploy is using [Vercel](https://vercel.com):
+You can also deploy to [Vercel](https://vercel.com):
 
 1. Push your code to GitHub
 2. Import your repository in Vercel

@@ -2,8 +2,35 @@
 
 ## ✅ Current Status
 
-Your website is configured to deploy to GitHub Pages at:
-**https://gits5213.github.io/gitsics-website/**
+Your website is configured for **automatic deployment** to GitHub Pages using GitHub Actions.
+
+**Site URL**: https://gits5213.github.io/gitsics-website/
+
+## 🚀 Automatic Deployment
+
+This project uses GitHub Actions to automatically deploy your site whenever you push to the `main` or `master` branch.
+
+### Initial Setup (One-time)
+
+1. **Enable GitHub Pages**:
+   - Go to: https://github.com/gits5213/gitsics-website/settings/pages
+   - Under **Source**, select **GitHub Actions**
+   - Save the settings
+
+2. **Push your code**:
+   - Push to `main` or `master` branch
+   - GitHub Actions will automatically build and deploy
+
+### How It Works
+
+- **Workflow File**: `.github/workflows/deploy.yml`
+- **Triggers**: 
+  - Automatic on push to `main`/`master`
+  - Manual via Actions tab → "Run workflow"
+- **Build Process**: 
+  1. Installs dependencies
+  2. Builds Next.js static export
+  3. Deploys to GitHub Pages
 
 ## 🔍 Troubleshooting 404 Errors
 

@@ -53,7 +53,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="https://mdszaman.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-                  MDSZaman Protfolio
+                  Md Shahnewaz Zaman | Portfolio
                 </a>
               </li>
             </ul>

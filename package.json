@@ -7,8 +7,7 @@
     "build": "next build",
     "build:custom-domain": "CUSTOM_DOMAIN=true next build",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "npm rebuild lightningcss --platform=linux --arch=x64"
+    "lint": "eslint"
   },
   "dependencies": {
     "googleapis": "^144.0.0",

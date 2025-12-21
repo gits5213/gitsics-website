@@ -1,6 +1,14 @@
 # Google Sheets Integration Setup
 
-This guide will help you set up Google Sheets integration to store student enrollment form submissions.
+**⚠️ IMPORTANT: For Static Site Deployment (GitHub Pages)**
+
+If your site is deployed as a static export (GitHub Pages), API routes don't work. **You must use Google Apps Script instead.** 
+
+👉 **See [GOOGLE_APPS_SCRIPT_SETUP.md](./GOOGLE_APPS_SCRIPT_SETUP.md) for static site setup.**
+
+---
+
+This guide is for server-side API routes (Vercel, Netlify Functions, etc.). If you're using static hosting, use the Google Apps Script method instead.
 
 ## Prerequisites
 

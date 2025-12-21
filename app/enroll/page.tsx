@@ -92,7 +92,14 @@ export default function Enroll() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/enroll", {
+      // Use Google Apps Script web app URL for static site deployment
+      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
+      
+      if (!scriptUrl) {
+        throw new Error("Form submission endpoint not configured. Please contact support.");
+      }
+
+      const response = await fetch(scriptUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,9 +107,22 @@ export default function Enroll() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
+      // Check if response is ok (status 200-299)
       if (!response.ok) {
+        const errorText = await response.text();
+        let errorData;
+        try {
+          errorData = JSON.parse(errorText);
+        } catch {
+          errorData = { error: errorText || "Failed to submit enrollment" };
+        }
+        throw new Error(errorData.error || "Failed to submit enrollment");
+      }
+
+      // Parse response
+      const data = await response.json();
+      
+      if (!data.success) {
         throw new Error(data.error || "Failed to submit enrollment");
       }
 

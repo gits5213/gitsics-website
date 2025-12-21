@@ -1,24 +1,12 @@
-# Google Apps Script Setup for Form Submissions
+/**
+ * GITSICS Enrollment Form Handler
+ * 
+ * Instructions:
+ * 1. Replace 'YOUR_SPREADSHEET_ID' below with your actual Google Sheet ID
+ * 2. Deploy as a web app with "Anyone" access
+ * 3. Copy the deployment URL to your .env.local and GitHub secrets
+ */
 
-Since your site is deployed as a static export (GitHub Pages), API routes don't work. This guide shows you how to set up Google Apps Script to handle form submissions.
-
-## Step 1: Create Google Apps Script Web App
-
-1. Go to [Google Apps Script](https://script.google.com/)
-2. Click "New Project"
-3. Replace the default code with the script below
-4. Save the project (give it a name like "GITSICS Enrollment Handler")
-
-## Step 2: Copy the Script Code
-
-**Option 1: Copy from the script file**
-- Open `google-apps-script.js` in this repository
-- Copy the entire contents
-- Paste into Google Apps Script editor
-
-**Option 2: Copy from below**
-
-```javascript
 function doPost(e) {
   try {
     Logger.log('Received request');
@@ -81,7 +69,13 @@ function doPost(e) {
     Logger.log('Form data parsed successfully:', JSON.stringify(formData));
     
     // Get or create the spreadsheet
+    // REPLACE THIS WITH YOUR ACTUAL SPREADSHEET ID
     const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // Replace with your spreadsheet ID
+    
+    if (spreadsheetId === 'YOUR_SPREADSHEET_ID') {
+      throw new Error('Please set your spreadsheet ID in the script. Find it in your Google Sheet URL.');
+    }
+    
     const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
     
     // Get or create the "students" sheet
@@ -130,11 +124,11 @@ function doPost(e) {
     
     // Append the new row
     sheet.appendRow(rowData);
+    Logger.log('Row appended to sheet successfully');
     
     // Send email notification
     try {
       const recipientEmail = 'mdzaman.gits@gmail.com';
-      const subject = `New Student Enrollment: ${formData.firstName} ${formData.lastName}`;
       
       const courses = {
         'qa-manual': 'QA Manual Testing',
@@ -149,31 +143,42 @@ function doPost(e) {
         'digital-marketing': 'Digital Marketing'
       };
       
-      const courseName = courses[formData.selectedCourse] || formData.selectedCourse || 'Not specified';
-      
       const formatLabels = {
         'in-person': 'In-Person',
         'online': 'Online',
         'corporate': 'Corporate'
       };
       
+      const courseName = courses[formData.selectedCourse] || formData.selectedCourse || 'Not specified';
       const formatLabel = formatLabels[formData.trainingFormat] || formData.trainingFormat || 'Not specified';
       
+      const subject = `New Student Enrollment: ${formData.firstName} ${formData.lastName} - ${courseName}`;
+      
       const emailBody = `
-New Student Enrollment
+New Student Enrollment Received
 
-Timestamp: ${new Date(timestamp).toLocaleString()}
-Name: ${formData.firstName} ${formData.lastName}
-Email: ${formData.email}
-Phone: ${formData.phone}
-${formData.address ? `Address: ${formData.address}` : ''}
-${formData.city || formData.state ? `Location: ${[formData.city, formData.state, formData.zipCode].filter(Boolean).join(', ')}${formData.country ? `, ${formData.country}` : ''}` : ''}
-Selected Course: ${courseName}
-Training Format: ${formatLabel}
-${formData.previousExperience ? `Previous Experience: ${formData.previousExperience}` : ''}
-${formData.howDidYouHear ? `How They Heard About Us: ${formData.howDidYouHear}` : ''}
-${formData.additionalInfo ? `Additional Comments: ${formData.additionalInfo}` : ''}
+Student Information:
+- Name: ${formData.firstName} ${formData.lastName}
+- Email: ${formData.email}
+- Phone: ${formData.phone}
+- Address: ${formData.address || 'Not provided'}
+- City: ${formData.city || 'Not provided'}
+- State: ${formData.state || 'Not provided'}
+- ZIP Code: ${formData.zipCode || 'Not provided'}
+- Country: ${formData.country || 'Not provided'}
 
+Course Information:
+- Selected Course: ${courseName}
+- Training Format: ${formatLabel}
+- Previous Experience: ${formData.previousExperience || 'Not provided'}
+- How Did You Hear: ${formData.howDidYouHear || 'Not provided'}
+
+Additional Information:
+${formData.additionalInfo || 'None provided'}
+
+Timestamp: ${timestamp}
+
+---
 View full details: https://docs.google.com/spreadsheets/d/${spreadsheetId}
       `;
       
@@ -182,8 +187,11 @@ View full details: https://docs.google.com/spreadsheets/d/${spreadsheetId}
         subject: subject,
         body: emailBody
       });
+      
+      Logger.log('Email sent successfully');
     } catch (emailError) {
       Logger.log('Failed to send email: ' + emailError);
+      // Don't throw - data is already saved
     }
     
     // Return success response with CORS headers
@@ -196,6 +204,8 @@ View full details: https://docs.google.com/spreadsheets/d/${spreadsheetId}
     
   } catch (error) {
     Logger.log('Error: ' + error.toString());
+    Logger.log('Stack: ' + error.stack);
+    
     const output = ContentService.createTextOutput(JSON.stringify({
       success: false,
       error: error.toString()
@@ -209,59 +219,25 @@ View full details: https://docs.google.com/spreadsheets/d/${spreadsheetId}
 function doOptions() {
   return ContentService.createTextOutput('').setMimeType(ContentService.MimeType.JSON);
 }
-```
 
-## Step 3: Configure the Script
-
-1. Replace `YOUR_SPREADSHEET_ID` with your actual Google Sheet ID
-2. Click the "Deploy" button → "New deployment"
-3. Click the gear icon ⚙️ → "Web app"
-4. Set:
-   - **Execute as**: Me (your email)
-   - **Who has access**: Anyone
-5. Click "Deploy"
-6. **Copy the Web App URL** - you'll need this for the form
-
-## Step 4: Configure Environment Variable
-
-Add the Google Apps Script URL to your environment variables:
-
-**For local development**, create a `.env.local` file:
-```env
-NEXT_PUBLIC_GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
-```
-
-**For GitHub Pages deployment**, add it as a GitHub Secret:
-1. Go to your repository → Settings → Secrets and variables → Actions
-2. Click "New repository secret"
-3. Name: `NEXT_PUBLIC_GOOGLE_SCRIPT_URL`
-4. Value: Your Google Apps Script web app URL
-5. Click "Add secret"
-
-Then update your GitHub Actions workflow to use it:
-```yaml
-- name: Build
-  run: |
-    if [ "${{ secrets.CUSTOM_DOMAIN }}" == "true" ]; then
-      echo "Building for custom domain (no basePath)"
-      CUSTOM_DOMAIN=true NEXT_PUBLIC_GOOGLE_SCRIPT_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }} npm run build
-    else
-      echo "Building for GitHub Pages subdomain (with basePath)"
-      NEXT_PUBLIC_BASE_PATH=/gitsics-website NEXT_PUBLIC_GOOGLE_SCRIPT_URL=${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }} npm run build
-    fi
-```
-
-**Note:** The form is already configured to use this environment variable.
-
-## Step 5: Test the Setup
-
-1. Submit a test enrollment form
-2. Check your Google Sheet - the data should appear
-3. Check your email - you should receive a notification
-
-## Troubleshooting
-
-- **403 Forbidden Error**: Make sure "Who has access" is set to "Anyone"
-- **Data not appearing**: Check the spreadsheet ID is correct
-- **Email not sending**: Verify MailApp permissions are granted
+// Test function - you can run this to verify the script works
+function test() {
+  const testData = {
+    firstName: 'Test',
+    lastName: 'User',
+    email: 'test@example.com',
+    phone: '1234567890',
+    selectedCourse: 'qa-manual',
+    trainingFormat: 'online'
+  };
+  
+  const mockEvent = {
+    parameter: {
+      data: JSON.stringify(testData)
+    }
+  };
+  
+  const result = doPost(mockEvent);
+  Logger.log('Test result:', result.getContent());
+}
 

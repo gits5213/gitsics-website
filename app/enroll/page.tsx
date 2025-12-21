@@ -96,7 +96,7 @@ export default function Enroll() {
       const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
       
       if (!scriptUrl) {
-        throw new Error("Form submission endpoint not configured. Please contact support.");
+        throw new Error("Form submission endpoint not configured. Please set up Google Apps Script and add NEXT_PUBLIC_GOOGLE_SCRIPT_URL as a GitHub secret. See GOOGLE_APPS_SCRIPT_SETUP.md for instructions.");
       }
 
       const response = await fetch(scriptUrl, {

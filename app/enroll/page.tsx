@@ -92,9 +92,40 @@ export default function Enroll() {
     setIsSubmitting(true);
 
     try {
-      // Form validation passed - show success message
-      // Note: Form submission functionality has been removed
+      // Use Google Apps Script web app URL for form submission
+      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
+      
+      if (!scriptUrl) {
+        throw new Error("Form submission endpoint not configured. Please set up Google Apps Script and add NEXT_PUBLIC_GOOGLE_SCRIPT_URL environment variable.");
+      }
+
+      console.log("Submitting enrollment form...");
       console.log("Form data:", formData);
+
+      // Send data as individual form fields
+      const formDataToSend = new URLSearchParams();
+      
+      // Add all form fields individually
+      Object.keys(formData).forEach(key => {
+        const value = formData[key as keyof typeof formData];
+        if (value !== null && value !== undefined && value !== '') {
+          formDataToSend.append(key, String(value));
+        }
+      });
+
+      // Submit to Google Apps Script
+      const response = await fetch(scriptUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formDataToSend.toString(),
+        mode: "no-cors", // Required for Google Apps Script
+        cache: "no-cache",
+      });
+
+      // With no-cors mode, we can't read the response, but if fetch completes without error, assume success
+      console.log("Form submission sent successfully");
       
       // Success
       setSubmitted(true);

@@ -101,6 +101,8 @@ export default function Enroll() {
 
       console.log("Submitting to:", scriptUrl.substring(0, 50) + "...");
       console.log("Script URL configured:", scriptUrl ? "Yes" : "No");
+      console.log("Full script URL:", scriptUrl);
+      console.log("Form data being sent:", formData);
 
       // Use form-encoded data with no-cors mode (most reliable for Google Apps Script)
       const formDataToSend = new URLSearchParams();

@@ -95,8 +95,74 @@ function doPost(e) {
     
     Logger.log('Form data parsed successfully:', JSON.stringify(formData));
     
+    // Use the shared processFormData function
+    return processFormData(formData);
+    
+  } catch (error) {
+    Logger.log('Error: ' + error.toString());
+    Logger.log('Stack: ' + error.stack);
+    
+    const output = ContentService.createTextOutput(JSON.stringify({
+      success: false,
+      error: error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+    
+    return output;
+  }
+}
+
+// Handle GET requests (sometimes no-cors POST requests get converted to GET)
+function doGet(e) {
+  Logger.log('=== doGet called ===');
+  
+  // Handle undefined e
+  if (typeof e === 'undefined' || e === null) {
+    Logger.log('doGet: e is undefined');
+    e = { parameter: {} };
+  }
+  
+  Logger.log('doGet e.parameter:', e.parameter ? JSON.stringify(e.parameter) : 'undefined');
+  
+  // Check if we have form data in parameters (from no-cors POST that became GET)
+  if (e.parameter && (e.parameter.firstName || e.parameter.email || e.parameter.data)) {
+    Logger.log('doGet: Found form data, processing...');
+    // Process the data using the same logic as doPost
+    return processFormData(e.parameter);
+  }
+  
+  // No data, return error
+  return ContentService.createTextOutput(JSON.stringify({
+    success: false,
+    error: 'This endpoint only accepts POST requests with form data. Please use the enrollment form.'
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
+// Shared function to process form data (used by both doGet and doPost)
+function processFormData(params) {
+  try {
+    Logger.log('processFormData called');
+    Logger.log('params:', JSON.stringify(params));
+    
+    let formData;
+    
+    // Try to parse JSON from 'data' parameter
+    if (params.data) {
+      try {
+        formData = JSON.parse(params.data);
+        Logger.log('Parsed JSON from params.data');
+      } catch (parseError) {
+        Logger.log('Failed to parse params.data as JSON, using params directly');
+        formData = params;
+      }
+    } else {
+      // Use params directly (individual form fields)
+      formData = params;
+      Logger.log('Using params directly as form data');
+    }
+    
+    Logger.log('Form data:', JSON.stringify(formData));
+    
     // Get or create the spreadsheet
-    // REPLACE THIS WITH YOUR ACTUAL SPREADSHEET ID
     const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // Replace with your spreadsheet ID
     
     if (spreadsheetId === 'YOUR_SPREADSHEET_ID') {
@@ -221,37 +287,21 @@ View full details: https://docs.google.com/spreadsheets/d/${spreadsheetId}
       // Don't throw - data is already saved
     }
     
-    // Return success response with CORS headers
-    const output = ContentService.createTextOutput(JSON.stringify({
+    // Return success response
+    return ContentService.createTextOutput(JSON.stringify({
       success: true,
       message: 'Enrollment submitted successfully'
     })).setMimeType(ContentService.MimeType.JSON);
     
-    return output;
-    
   } catch (error) {
-    Logger.log('Error: ' + error.toString());
+    Logger.log('processFormData error: ' + error.toString());
     Logger.log('Stack: ' + error.stack);
     
-    const output = ContentService.createTextOutput(JSON.stringify({
+    return ContentService.createTextOutput(JSON.stringify({
       success: false,
       error: error.toString()
     })).setMimeType(ContentService.MimeType.JSON);
-    
-    return output;
   }
-}
-
-// Handle GET requests (in case of redirects or direct access)
-function doGet(e) {
-  Logger.log('doGet called');
-  Logger.log('e:', e ? 'exists' : 'undefined');
-  
-  // Return a simple response
-  return ContentService.createTextOutput(JSON.stringify({
-    success: false,
-    error: 'This endpoint only accepts POST requests. Please use the enrollment form.'
-  })).setMimeType(ContentService.MimeType.JSON);
 }
 
 // Handle CORS preflight requests

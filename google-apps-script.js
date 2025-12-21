@@ -62,18 +62,22 @@ function doPost(e) {
         }
       }
     }
-    // Try e.parameter directly (for GET requests or different encoding)
+    // Try e.parameter directly (for individual form fields)
     else if (e.parameter) {
-      // Check if data is in individual parameters
-      if (e.parameter.firstName) {
+      // Check if data is in individual parameters (form fields sent directly)
+      if (e.parameter.firstName || e.parameter.email) {
         formData = e.parameter;
-        Logger.log('Using e.parameter directly');
+        Logger.log('Using e.parameter directly (individual form fields)');
+        Logger.log('Form data keys:', Object.keys(formData));
       } else {
-        throw new Error('No valid data found in request');
+        Logger.log('e.parameter exists but no form fields found');
+        Logger.log('e.parameter keys:', Object.keys(e.parameter));
+        throw new Error('No valid data found in request parameters');
       }
     }
     else {
       Logger.log('No data found in request');
+      Logger.log('e:', JSON.stringify(e));
       throw new Error('No post data received. Check that form is sending data correctly.');
     }
     

@@ -104,9 +104,16 @@ export default function Enroll() {
       console.log("Full script URL:", scriptUrl);
       console.log("Form data being sent:", formData);
 
-      // Use form-encoded data with no-cors mode (most reliable for Google Apps Script)
+      // Send data as individual form fields (more reliable with Google Apps Script)
       const formDataToSend = new URLSearchParams();
-      formDataToSend.append('data', JSON.stringify(formData));
+      
+      // Add all form fields individually
+      Object.keys(formData).forEach(key => {
+        const value = formData[key as keyof typeof formData];
+        if (value !== null && value !== undefined && value !== '') {
+          formDataToSend.append(key, String(value));
+        }
+      });
 
       // Use no-cors mode which works best with Google Apps Script
       // Note: We can't read the response with no-cors, but the script will process it

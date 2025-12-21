@@ -226,8 +226,21 @@ View full details: https://docs.google.com/spreadsheets/d/${spreadsheetId}
   }
 }
 
+// Handle GET requests (in case of redirects or direct access)
+function doGet(e) {
+  Logger.log('doGet called');
+  Logger.log('e:', e ? 'exists' : 'undefined');
+  
+  // Return a simple response
+  return ContentService.createTextOutput(JSON.stringify({
+    success: false,
+    error: 'This endpoint only accepts POST requests. Please use the enrollment form.'
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
 // Handle CORS preflight requests
-function doOptions() {
+function doOptions(e) {
+  Logger.log('doOptions called');
   return ContentService.createTextOutput('').setMimeType(ContentService.MimeType.JSON);
 }
 

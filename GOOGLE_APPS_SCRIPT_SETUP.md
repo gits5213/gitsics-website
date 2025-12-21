@@ -11,7 +11,18 @@ This guide will help you set up Google Apps Script to handle enrollment form sub
 5. Paste it into the Google Apps Script editor
 6. Save the project (give it a name like "GITSICS Enrollment Handler")
 
-## Step 2: Deploy as Web App
+## Step 2: Test the Script First (IMPORTANT!)
+
+Before deploying, test that the script runs without errors:
+
+1. Click the **"Run"** button (▶️) at the top
+2. Select **"doPost"** from the function dropdown (if it appears)
+3. If you see an authorization prompt, click **"Review permissions"** and authorize
+4. If there are any errors, fix them before proceeding to deployment
+
+**Note**: You might see an error about missing parameters - that's OK for testing. The important thing is that the script loads without syntax errors.
+
+## Step 3: Deploy as Web App
 
 1. Click **"Deploy"** → **"New deployment"**
 2. Click the **gear icon** ⚙️ next to "Select type"
@@ -21,8 +32,61 @@ This guide will help you set up Google Apps Script to handle enrollment form sub
    - **Execute as**: Me (your email)
    - **Who has access**: **"Anyone"** ← THIS IS CRITICAL!
 5. Click **"Deploy"**
-6. **Copy the Web App URL** (it will look like: `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec`)
-7. Click **"Done"**
+6. **Authorize the script** if prompted:
+   - Click **"Authorize access"**
+   - Select your Google account
+   - Click **"Advanced"** → **"Go to [Project Name] (unsafe)"**
+   - Click **"Allow"**
+7. **Copy the Web App URL** (it will look like: `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec`)
+8. Click **"Done"**
+
+## Troubleshooting "Bad Request Error 400"
+
+If you get "Bad Request Error 400" when deploying:
+
+### Fix 1: Check for Syntax Errors
+1. Look at the script editor - are there any red error indicators?
+2. Make sure all quotes are properly closed
+3. Make sure all brackets `{}` and parentheses `()` are balanced
+4. Try clicking **"Run"** → **"doPost"** to see if there are errors
+
+### Fix 2: Save the Script First
+1. Make sure you've clicked **"Save"** (Ctrl+S or Cmd+S) before deploying
+2. The script must be saved before it can be deployed
+
+### Fix 3: Try Deploying Without Authorization First
+1. In deployment settings, try **"Execute as"** → **"Me"** (not "User accessing the web app")
+2. Deploy
+3. After successful deployment, you can update the settings
+
+### Fix 4: Check Script Name
+1. Make sure your script project has a name (not "Untitled Project")
+2. Click the project name at the top and give it a name like "GITSICS Enrollment Handler"
+
+### Fix 5: Copy Code Fresh
+1. Delete all code in the script editor
+2. Copy the entire code from `google-apps-script.js` again
+3. Make sure you copy everything, including the `doPost` and `doOptions` functions
+4. Save the script
+5. Try deploying again
+
+### Fix 6: Use Minimal Test Script First
+If still having issues, try deploying this minimal script first to test:
+
+```javascript
+function doPost(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    success: true,
+    message: 'Test successful'
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doOptions() {
+  return ContentService.createTextOutput('').setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+If this minimal script deploys successfully, then gradually add back the full code.
 
 ## Step 3: Grant Permissions
 

@@ -3,9 +3,11 @@
  * 
  * Instructions:
  * 1. Copy this entire code to Google Apps Script (script.google.com)
- * 2. Replace 'YOUR_SPREADSHEET_ID' with your actual Google Sheet ID
- * 3. Deploy as a web app with "Anyone" access
- * 4. Copy the deployment URL to your .env.local and GitHub secrets
+ * 2. Deploy as a web app with "Anyone" access
+ * 3. Copy the deployment URL to your .env.local and GitHub secrets
+ * 
+ * The script will automatically create a spreadsheet named "studentList"
+ * with a worksheet named "students" in your Google Drive.
  */
 
 function doPost(e) {

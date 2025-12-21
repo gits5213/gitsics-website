@@ -5,22 +5,174 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20">
+      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 md:py-28">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Become a Full-Stack Software Quality Engineer
-          </h1>
-            <p className="text-xl md:text-2xl mb-4 text-blue-100">
-              We Train. We Mentor. We Place.
-            </p>
-            <p className="text-lg mb-8 text-blue-50 max-w-2xl mx-auto">
-              Hands-on QA/SDET training, automation frameworks, resume/LinkedIn optimization, 
-              interview prep, and job placement support. Staffing and consulting services globally.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTAButton href="/contact" text="Apply Now" variant="secondary" />
-              <CTAButton href="/how-it-works" text="Learn More" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
+          <div className="max-w-7xl mx-auto">
+            {/* Main Heading */}
+            <div className="text-center mb-16">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                Transform Your Career with Expert Training & Placement
+              </h1>
+              <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
+                Comprehensive training programs, personalized mentorship, and job placement support. 
+                We Train. We Mentor. We Place.
+              </p>
+            </div>
+
+            {/* Three High-Level Services */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+              {/* QA/SDET Training Service - We Train */}
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl group">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-16 h-16 bg-blue-500/30 rounded-xl flex items-center justify-center group-hover:bg-blue-500/40 transition-colors">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <span className="px-4 py-1.5 bg-blue-500/30 rounded-full text-sm font-semibold text-blue-100 border border-blue-400/30">
+                    We Train
+                  </span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">QA/SDET Training Service</h2>
+                <p className="text-blue-100 mb-6 leading-relaxed">
+                  Comprehensive QA and SDET training programs designed to take you from beginner to job-ready professional. 
+                  Master industry-standard automation frameworks, testing methodologies, and real-world projects.
+                </p>
+                <ul className="space-y-2.5 text-blue-50 mb-6">
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>10+ QA/SDET Training Programs</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Playwright, Selenium, Cypress & More</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Hands-on Projects & Real-world Experience</span>
+                  </li>
+                </ul>
+                <Link 
+                  href="/courses" 
+                  className="inline-flex items-center text-white font-semibold hover:text-blue-200 transition group/link"
+                >
+                  Explore Courses
+                  <svg className="w-5 h-5 ml-2 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Digital Marketing Training Service - We Train */}
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl group">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-16 h-16 bg-purple-500/30 rounded-xl flex items-center justify-center group-hover:bg-purple-500/40 transition-colors">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
+                  <span className="px-4 py-1.5 bg-purple-500/30 rounded-full text-sm font-semibold text-purple-100 border border-purple-400/30">
+                    We Train
+                  </span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">Digital Marketing Training Service</h2>
+                <p className="text-blue-100 mb-6 leading-relaxed">
+                  Master comprehensive digital marketing strategies and tools. Learn SEO, social media marketing, 
+                  PPC advertising, content marketing, email campaigns, and analytics to excel in digital marketing.
+                </p>
+                <ul className="space-y-2.5 text-blue-50 mb-6">
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>SEO & Social Media Marketing</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>PPC Advertising & Content Marketing</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Email Marketing & Analytics</span>
+                  </li>
+                </ul>
+                <Link 
+                  href="/courses" 
+                  className="inline-flex items-center text-white font-semibold hover:text-purple-200 transition group/link"
+                >
+                  Explore Courses
+                  <svg className="w-5 h-5 ml-2 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Staffing Service - We Place */}
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl group">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-16 h-16 bg-green-500/30 rounded-xl flex items-center justify-center group-hover:bg-green-500/40 transition-colors">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <span className="px-4 py-1.5 bg-green-500/30 rounded-full text-sm font-semibold text-green-100 border border-green-400/30">
+                    We Place
+                  </span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">Staffing Service</h2>
+                <p className="text-blue-100 mb-6 leading-relaxed">
+                  Connect businesses with top-tier QA talent and expert consulting solutions globally. 
+                  We provide comprehensive staffing services including contract staffing, team augmentation, 
+                  and placement of skilled QA engineers and SDETs.
+                </p>
+                <ul className="space-y-2.5 text-blue-50 mb-6">
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>SDET/QA Engineers Placement</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Contract Staffing & Team Augmentation</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Global Staffing & Consulting</span>
+                  </li>
+                </ul>
+                <Link 
+                  href="/staffing" 
+                  className="inline-flex items-center text-white font-semibold hover:text-green-200 transition group/link"
+                >
+                  Learn More
+                  <svg className="w-5 h-5 ml-2 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="text-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <CTAButton href="/enroll" text="Enroll Now" variant="secondary" />
+                <CTAButton href="/courses" text="View Courses" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
+              </div>
             </div>
           </div>
         </div>
@@ -166,6 +318,7 @@ export default function Home() {
               { title: "Performance Tester", desc: "Master load, stress, and performance testing with JMeter and advanced tools" },
               { title: "Security Tester", desc: "OWASP Top 10, API security, vulnerability scanning, and security testing automation" },
               { title: "508 Compliance Tester", desc: "Accessibility testing and WCAG compliance for inclusive software applications" },
+              { title: "Digital Marketing", desc: "SEO, Social Media Marketing, PPC, Content Marketing, Email Marketing, and Analytics" },
             ].map((course) => (
               <div key={course.title} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition">
                 <h3 className="text-xl font-semibold mb-3 text-gray-900">{course.title}</h3>

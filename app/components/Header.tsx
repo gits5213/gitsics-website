@@ -51,14 +51,8 @@ export default function Header() {
             <Link href="/staffing" className="text-gray-700 hover:text-blue-600 transition">
               Staffing
             </Link>
-            <Link href="/how-it-works" className="text-gray-700 hover:text-blue-600 transition">
-              How It Works
-            </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-blue-600 transition">
-              Contact
-            </Link>
             <Link
-              href="/contact"
+              href="/enroll"
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition font-semibold"
             >
               Enroll Now
@@ -90,10 +84,8 @@ export default function Header() {
             <Link href="/advanced-career" className="block text-gray-700 hover:text-blue-600">Advanced Career</Link>
             <Link href="/career-services" className="block text-gray-700 hover:text-blue-600">Career Services</Link>
             <Link href="/staffing" className="block text-gray-700 hover:text-blue-600">Staffing</Link>
-            <Link href="/how-it-works" className="block text-gray-700 hover:text-blue-600">How It Works</Link>
-            <Link href="/contact" className="block text-gray-700 hover:text-blue-600">Contact</Link>
             <Link
-              href="/contact"
+              href="/enroll"
               className="block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition text-center font-semibold"
             >
               Enroll Now

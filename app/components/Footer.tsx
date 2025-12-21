@@ -30,6 +30,7 @@ export default function Footer() {
               <li><Link href="/about" className="hover:text-white transition">About Us</Link></li>
               <li><Link href="/courses" className="hover:text-white transition">Courses</Link></li>
               <li><Link href="/how-it-works" className="hover:text-white transition">How It Works</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -40,7 +41,6 @@ export default function Footer() {
               <li><Link href="/advanced-career" className="hover:text-white transition">Advanced Career</Link></li>
               <li><Link href="/career-services" className="hover:text-white transition">Career Services</Link></li>
               <li><Link href="/staffing" className="hover:text-white transition">Staffing Solutions</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition">Contact Us</Link></li>
               <li>
                 <a href="https://gits5213.github.io/gits/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
                   Educational Website

@@ -178,6 +178,33 @@ const courses = [
     ],
     projects: ["Accessibility test plan", "WCAG compliance audit", "Accessibility test report"],
   },
+  {
+    id: "digital-marketing",
+    title: "Digital Marketing",
+    description: "Master comprehensive digital marketing strategies and tools",
+    duration: "10 weeks",
+    level: "Beginner",
+    tools: ["Google Analytics", "Google Ads", "Facebook Ads", "SEO Tools", "Email Marketing Platforms", "Content Management Systems", "Social Media Management Tools"],
+    learn: [
+      "SEO Optimization & Strategy",
+      "Social Media Marketing",
+      "Content Marketing & Copywriting",
+      "Pay-Per-Click (PPC) Advertising",
+      "Email Marketing Campaigns",
+      "Analytics & Performance Tracking",
+      "Search Engine Marketing (SEM)",
+      "Content strategy and planning",
+      "Conversion rate optimization",
+      "Marketing automation",
+    ],
+    projects: [
+      "Complete SEO audit and optimization plan",
+      "Social media marketing campaign",
+      "PPC campaign setup and management",
+      "Email marketing campaign",
+      "Analytics dashboard and reporting",
+    ],
+  },
 ];
 
 export default function Courses() {
@@ -277,7 +304,7 @@ export default function Courses() {
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-gray-200">
-                <CTAButton href="/contact" text="Enroll Now" />
+                <CTAButton href="/enroll" text="Enroll Now" />
               </div>
             </div>
           ))}

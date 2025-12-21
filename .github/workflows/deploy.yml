@@ -28,9 +28,15 @@ jobs:
       
       - name: Install dependencies
         run: |
-          npm install --include=optional
-          # Ensure lightningcss native binaries are installed for Linux
-          npm rebuild lightningcss || npm install --force lightningcss
+          # Clean install to ensure native binaries are properly installed
+          rm -rf node_modules package-lock.json
+          npm install --include=optional --legacy-peer-deps
+          # Explicitly install Tailwind CSS and lightningcss native binaries for Linux
+          npm install @tailwindcss/oxide-linux-x64-gnu --save-optional --legacy-peer-deps || true
+          npm install lightningcss-linux-x64-gnu --save-optional --legacy-peer-deps || true
+          # Verify installation
+          ls -la node_modules/lightningcss/ || echo "lightningcss not found"
+          ls -la node_modules/@tailwindcss/oxide/ || echo "oxide not found"
       
       - name: Build
         run: |

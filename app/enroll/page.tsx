@@ -99,51 +99,36 @@ export default function Enroll() {
         throw new Error("Form submission endpoint not configured. Please set up Google Apps Script and add NEXT_PUBLIC_GOOGLE_SCRIPT_URL as a GitHub secret. See GOOGLE_APPS_SCRIPT_SETUP.md for instructions.");
       }
 
-      // Try with JSON first (preferred method)
-      let response;
+      console.log("Submitting to:", scriptUrl.substring(0, 50) + "...");
+      console.log("Script URL configured:", scriptUrl ? "Yes" : "No");
+
+      // Use form-encoded data with no-cors mode (most reliable for Google Apps Script)
+      const formDataToSend = new URLSearchParams();
+      formDataToSend.append('data', JSON.stringify(formData));
+
+      // Use no-cors mode which works best with Google Apps Script
+      // Note: We can't read the response with no-cors, but the script will process it
       try {
-        response = await fetch(scriptUrl, {
+        const fetchPromise = fetch(scriptUrl, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: JSON.stringify(formData),
-          redirect: "follow",
+          body: formDataToSend.toString(),
+          mode: "no-cors",
+          cache: "no-cache",
         });
 
-        // If we get a response, try to parse it
-        if (response.ok) {
-          const data = await response.json();
-          if (!data.success) {
-            throw new Error(data.error || "Failed to submit enrollment");
-          }
-        } else {
-          throw new Error(`Server returned status ${response.status}`);
-        }
-      } catch (fetchError: any) {
-        // If JSON fetch fails (likely CORS issue), try with form-encoded data and no-cors
-        console.log("JSON request failed, trying form-encoded approach:", fetchError);
+        // Wait for the fetch to complete (even though we can't read response)
+        await fetchPromise;
         
-        const formDataToSend = new URLSearchParams();
-        formDataToSend.append('data', JSON.stringify(formData));
-
-        try {
-          await fetch(scriptUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: formDataToSend.toString(),
-            mode: "no-cors", // No CORS check - request will succeed if sent
-          });
-          
-          // With no-cors, we can't verify success, but assume it worked
-          // The data should be saved by Google Apps Script
-          console.log("Form data submitted (no-cors mode)");
-        } catch (formError: any) {
-          // If both methods fail, throw the original error
-          throw new Error("Unable to submit form. Please check your internet connection and try again. If the problem persists, contact support.");
-        }
+        // With no-cors mode, if fetch completes without error, assume success
+        // The Google Apps Script will process the data and send email notification
+        console.log("Form submission sent successfully");
+      } catch (networkError: any) {
+        // Even with no-cors, network errors (DNS, connection refused, etc.) will throw
+        console.error("Network error details:", networkError);
+        throw new Error(`Network error: Unable to reach the submission server. Please verify: 1) Your internet connection is working, 2) The Google Apps Script is deployed with "Anyone" access, 3) The script URL is correct. Check browser console (F12) for more details.`);
       }
 
       // Success
@@ -172,12 +157,15 @@ export default function Enroll() {
       }, 5000);
     } catch (error: any) {
       console.error("Error submitting enrollment:", error);
+      console.error("Script URL:", process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL ? "Set" : "Not set");
       
       // Provide more specific error messages
       let errorMessage = "Failed to submit enrollment. Please try again.";
       
       if (error.message && error.message.includes("fetch")) {
         errorMessage = "Network error. Please check your internet connection and try again. If the problem persists, the form endpoint may need to be reconfigured.";
+      } else if (error.name === "TypeError" && error.message.includes("Failed to fetch")) {
+        errorMessage = "Unable to connect to the submission server. Please check your internet connection. If the problem persists, verify that the Google Apps Script is deployed correctly with 'Anyone' access.";
       } else if (error.message) {
         errorMessage = error.message;
       }

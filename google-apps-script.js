@@ -8,16 +8,28 @@
  */
 
 function doPost(e) {
-  try {
-    // Handle case where e is undefined or null
-    if (!e) {
-      Logger.log('Error: Event object (e) is undefined');
+  // CRITICAL: Handle undefined e parameter - this should never happen but does with some deployments
+  if (typeof e === 'undefined' || e === null) {
+    Logger.log('CRITICAL ERROR: Event object (e) is undefined or null');
+    Logger.log('This usually means:');
+    Logger.log('1. Script is not deployed as a web app');
+    Logger.log('2. Script deployment has wrong access settings');
+    Logger.log('3. Request is not reaching doPost correctly');
+    
+    // Try to return a helpful error
+    try {
       const output = ContentService.createTextOutput(JSON.stringify({
         success: false,
-        error: 'Invalid request: Event object is missing'
+        error: 'Invalid request: Event object is missing. Please ensure the script is deployed as a web app with "Anyone" access.'
       })).setMimeType(ContentService.MimeType.JSON);
       return output;
+    } catch (err) {
+      Logger.log('Could not create output: ' + err);
+      return null;
     }
+  }
+  
+  try {
     
     Logger.log('Received request');
     Logger.log('e:', e ? 'exists' : 'undefined');

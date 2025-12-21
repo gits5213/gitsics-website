@@ -15,7 +15,30 @@ Since your site is deployed as a static export (GitHub Pages), API routes don't 
 function doPost(e) {
   try {
     // Parse the incoming JSON data
-    const formData = JSON.parse(e.postData.contents);
+    // Handle both direct JSON and FormData with 'data' field
+    let formData;
+    try {
+      if (e.postData && e.postData.contents) {
+        const contents = e.postData.contents;
+        // Try to parse as JSON first
+        try {
+          formData = JSON.parse(contents);
+        } catch {
+          // If that fails, try parsing as FormData
+          const params = new URLSearchParams(contents);
+          const dataField = params.get('data');
+          if (dataField) {
+            formData = JSON.parse(dataField);
+          } else {
+            throw new Error('Invalid data format');
+          }
+        }
+      } else {
+        throw new Error('No post data received');
+      }
+    } catch (parseError) {
+      throw new Error('Failed to parse request data: ' + parseError.toString());
+    }
     
     // Get or create the spreadsheet
     const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // Replace with your spreadsheet ID

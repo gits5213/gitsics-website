@@ -105,6 +105,7 @@ export default function Enroll() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        redirect: "follow", // Follow redirects
       });
 
       // Check if response is ok (status 200-299)
@@ -152,8 +153,18 @@ export default function Enroll() {
       }, 5000);
     } catch (error: any) {
       console.error("Error submitting enrollment:", error);
+      
+      // Provide more specific error messages
+      let errorMessage = "Failed to submit enrollment. Please try again.";
+      
+      if (error.message && error.message.includes("fetch")) {
+        errorMessage = "Network error. Please check your internet connection and try again. If the problem persists, the form endpoint may need to be reconfigured.";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
       setErrors({
-        submit: error.message || "Failed to submit enrollment. Please try again.",
+        submit: errorMessage,
       });
     } finally {
       setIsSubmitting(false);

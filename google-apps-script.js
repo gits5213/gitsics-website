@@ -9,8 +9,19 @@
 
 function doPost(e) {
   try {
+    // Handle case where e is undefined or null
+    if (!e) {
+      Logger.log('Error: Event object (e) is undefined');
+      const output = ContentService.createTextOutput(JSON.stringify({
+        success: false,
+        error: 'Invalid request: Event object is missing'
+      })).setMimeType(ContentService.MimeType.JSON);
+      return output;
+    }
+    
     Logger.log('Received request');
-    Logger.log('e.parameter:', JSON.stringify(e.parameter));
+    Logger.log('e:', e ? 'exists' : 'undefined');
+    Logger.log('e.parameter:', e.parameter ? JSON.stringify(e.parameter) : 'undefined');
     Logger.log('e.postData:', e.postData ? 'exists' : 'undefined');
     
     let formData;

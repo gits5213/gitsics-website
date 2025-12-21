@@ -27,24 +27,17 @@ function doPost(e) {
     // Get form data from parameters (individual fields)
     const formData = e.parameter;
     
-    // Get or create the spreadsheet named "studentList"
-    const spreadsheetName = 'studentList';
+    // Use the existing spreadsheet ID
+    const spreadsheetId = '197k7aG27bxnrfY0ALaSQb6uDKRzKHejChlRKNSK5ZXA';
     let spreadsheet;
     
     try {
-      // Try to find existing spreadsheet
-      const files = DriveApp.getFilesByName(spreadsheetName);
-      if (files.hasNext()) {
-        spreadsheet = SpreadsheetApp.open(files.next());
-        Logger.log('Found existing spreadsheet: ' + spreadsheetName);
-      } else {
-        // Create new spreadsheet
-        spreadsheet = SpreadsheetApp.create(spreadsheetName);
-        Logger.log('Created new spreadsheet: ' + spreadsheetName);
-      }
+      // Open the spreadsheet by ID
+      spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+      Logger.log('Opened spreadsheet with ID: ' + spreadsheetId);
     } catch (error) {
       Logger.log('Error accessing spreadsheet: ' + error);
-      throw new Error('Failed to access or create spreadsheet: ' + error.toString());
+      throw new Error('Failed to access spreadsheet. Please check the spreadsheet ID and ensure the script has access to it.');
     }
     
     // Get or create the "students" worksheet

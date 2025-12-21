@@ -1,86 +1,103 @@
-# Quick Fix for Broken Design on gitsics.com
+# Quick Fix for "Event object (e) is undefined" Error
 
-## ✅ Build is Ready!
+## This error means the script isn't receiving requests correctly
 
-Your site has been rebuilt correctly. The `out/` folder contains all files with correct paths.
+### IMMEDIATE FIX - Follow These Steps EXACTLY:
 
-## 🚀 Upload to Bluehost NOW
+#### Step 1: Verify Script Deployment (CRITICAL)
 
-### Option 1: Using Bluehost File Manager
+1. Go to https://script.google.com/
+2. Open your script project
+3. Click **"Deploy"** → **"Manage deployments"**
+4. **DELETE the existing deployment** (click the 3 dots → Delete)
+5. Click **"New deployment"**
+6. Click the **gear icon** ⚙️
+7. Select **"Web app"** (NOT "API Executable")
+8. Fill in:
+   - **Description**: "GITSICS Enrollment Handler"
+   - **Execute as**: Me (your email)
+   - **Who has access**: **"Anyone"** ← THIS IS CRITICAL!
+9. Click **"Deploy"**
+10. **Copy the Web App URL** (should end with `/exec`)
+11. Click **"Done"**
 
-1. **Log into Bluehost cPanel**
-2. **Open File Manager** → Navigate to `public_html`
-3. **Delete old files**:
-   - Delete `_next` folder (if exists)
-   - Delete old HTML files
-4. **Upload NEW files** from `out/` folder:
-   - Upload `index.html`
-   - Upload entire `_next/` folder
-   - Upload all other folders (`about/`, `courses/`, etc.)
-   - Upload `.htaccess` file (important for HTTPS!)
+#### Step 2: Update Your Script Code
 
-### Option 2: Using FTP (Recommended for large uploads)
+1. In Google Apps Script editor, **DELETE ALL existing code**
+2. Copy **ALL** code from `google-apps-script.js` file
+3. Paste it into the editor
+4. **Replace `YOUR_SPREADSHEET_ID`** with your actual spreadsheet ID:
+   - Open your Google Sheet
+   - Copy the ID from URL: `https://docs.google.com/spreadsheets/d/SHEET_ID_HERE/edit`
+   - Replace `YOUR_SPREADSHEET_ID` in the script (around line 100)
+5. Click **"Save"** (Ctrl+S or Cmd+S)
 
-1. **Use FileZilla or similar FTP client**
-2. **Connect to Bluehost**:
-   - Host: `ftp.gitsics.com` or your server IP
-   - Username: Your cPanel username
-   - Password: Your cPanel password
-3. **Navigate to `public_html`**
-4. **Upload entire contents** of `out/` folder
+#### Step 3: Redeploy After Code Update
 
-## 🔒 Enable HTTPS (Fix "Not Secure" Warning)
+1. Click **"Deploy"** → **"Manage deployments"**
+2. Click **"New version"** (or edit existing)
+3. Make sure **"Who has access"** is still **"Anyone"**
+4. Click **"Deploy"**
+5. **Copy the NEW URL** (it might be the same, but copy it anyway)
+6. Update your `.env.local` file with this URL
+7. **Restart your dev server** (stop with Ctrl+C, then `npm run dev`)
 
-1. **In Bluehost cPanel**:
-   - Go to **SSL/TLS Status**
-   - Find `gitsics.com`
-   - Click **Run AutoSSL** or **Enable SSL**
-   - Wait 5-10 minutes for certificate
+#### Step 4: Test
 
-2. **The `.htaccess` file** (already in `out/` folder) will:
-   - Force HTTPS redirects
-   - Handle Next.js routing
-   - Enable caching
+1. Submit the enrollment form
+2. Check Google Apps Script → **"Executions"** tab
+3. You should see a new execution
+4. Click on it to see:
+   - Which function was called (`doPost` or `doGet`)
+   - Any error messages
+   - Log messages
 
-## 🧹 Clear Browser Cache
+#### Step 5: Verify the URL
 
-**After uploading**, clear your browser cache:
+Your script URL should:
+- ✅ End with `/exec` (NOT `/dev`)
+- ✅ Be from "Manage deployments" (NOT from the editor)
+- ✅ Start with `https://script.google.com/macros/s/`
 
-- **Chrome/Edge**: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
-- **Firefox**: `Ctrl+F5` (Windows) or `Cmd+Shift+R` (Mac)
-- **Or use Incognito/Private mode** to test
+### Common Mistakes:
 
-## ✅ Verify It Works
+❌ **Using `/dev` URL** - This is for testing, not production
+❌ **"Who has access" set to "Only myself"** - Must be "Anyone"
+❌ **Not deployed as "Web app"** - Must be "Web app" type
+❌ **Didn't redeploy after code changes** - Must redeploy after updating code
+❌ **Didn't restart dev server** - Must restart after updating `.env.local`
 
-After uploading, check:
+### Still Not Working?
 
-1. Visit `https://gitsics.com` - should load correctly
-2. Press `F12` → **Console tab** - should have NO errors
-3. Press `F12` → **Network tab** - CSS/JS files should load (status 200)
-4. Check design - should look correct now!
+If you've done all the above and still get the error:
 
-## 🐛 Still Broken?
+1. **Check execution logs**:
+   - Go to Google Apps Script → Executions
+   - Look for the most recent execution
+   - What function was called? (`doPost`, `doGet`, or something else?)
+   - What's the error message?
 
-1. **Check browser console** (F12) for error messages
-2. **Verify files uploaded**: Visit `https://gitsics.com/_next/static/chunks/` - should show files
-3. **Check file permissions**: Files should be `644`, folders `755`
-4. **Wait a few minutes** - DNS/cache might need time
+2. **Test the URL directly**:
+   - Open the script URL in a browser
+   - What do you see? (Should be blank or an error page)
 
-## 📝 Quick Rebuild Command
+3. **Try a fresh script**:
+   - Create a NEW Google Apps Script project
+   - Copy the code from `google-apps-script.js`
+   - Deploy as web app with "Anyone" access
+   - Test with the new URL
 
-If you need to rebuild again:
+4. **Check browser console**:
+   - Open DevTools (F12)
+   - Go to Network tab
+   - Submit the form
+   - Look for request to `script.google.com`
+   - What's the status? What's the request/response?
 
-```bash
-npm run build:custom-domain
-```
+### Need More Help?
 
-Or:
-
-```bash
-CUSTOM_DOMAIN=true npm run build
-```
-
----
-
-**The build is ready in the `out/` folder - just upload it to Bluehost!**
-
+Share:
+1. Screenshot of "Manage deployments" page
+2. Execution logs from Google Apps Script
+3. Browser console errors (F12 → Console)
+4. Network tab showing the request to script.google.com

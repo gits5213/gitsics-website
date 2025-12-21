@@ -38,6 +38,18 @@ jobs:
           ls -la node_modules/lightningcss/ || echo "lightningcss not found"
           ls -la node_modules/@tailwindcss/oxide/ || echo "oxide not found"
       
+      - name: Check Google Script URL
+        run: |
+          if [ -z "${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" ]; then
+            echo "⚠️  WARNING: NEXT_PUBLIC_GOOGLE_SCRIPT_URL secret is not set!"
+            echo "The enrollment form will not work until you:"
+            echo "1. Set up Google Apps Script (see GOOGLE_APPS_SCRIPT_SETUP.md)"
+            echo "2. Add NEXT_PUBLIC_GOOGLE_SCRIPT_URL as a GitHub secret"
+            echo "3. Redeploy the site"
+          else
+            echo "✅ Google Script URL is configured"
+          fi
+      
       - name: Build
         run: |
           if [ "${{ secrets.CUSTOM_DOMAIN }}" == "true" ]; then

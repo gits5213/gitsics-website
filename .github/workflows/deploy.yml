@@ -46,9 +46,15 @@ jobs:
             echo "1. Set up Google Apps Script (see GOOGLE_APPS_SCRIPT_SETUP.md)"
             echo "2. Add NEXT_PUBLIC_GOOGLE_SCRIPT_URL as a GitHub secret"
             echo "3. Redeploy the site"
+            exit 1
           else
             echo "✅ Google Script URL is configured"
+            echo "URL length: ${#NEXT_PUBLIC_GOOGLE_SCRIPT_URL}"
+            # Show first and last 20 chars for verification (without exposing full URL)
+            echo "URL starts with: $(echo '${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}' | cut -c1-30)..."
           fi
+        env:
+          NEXT_PUBLIC_GOOGLE_SCRIPT_URL: ${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}
       
       - name: Build
         run: |

@@ -92,54 +92,10 @@ export default function Enroll() {
     setIsSubmitting(true);
 
     try {
-      // Use Google Apps Script web app URL for static site deployment
-      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
+      // Form validation passed - show success message
+      // Note: Form submission functionality has been removed
+      console.log("Form data:", formData);
       
-      if (!scriptUrl) {
-        throw new Error("Form submission endpoint not configured. Please set up Google Apps Script and add NEXT_PUBLIC_GOOGLE_SCRIPT_URL as a GitHub secret. See GOOGLE_APPS_SCRIPT_SETUP.md for instructions.");
-      }
-
-      console.log("Submitting to:", scriptUrl.substring(0, 50) + "...");
-      console.log("Script URL configured:", scriptUrl ? "Yes" : "No");
-      console.log("Full script URL:", scriptUrl);
-      console.log("Form data being sent:", formData);
-
-      // Send data as individual form fields (more reliable with Google Apps Script)
-      const formDataToSend = new URLSearchParams();
-      
-      // Add all form fields individually
-      Object.keys(formData).forEach(key => {
-        const value = formData[key as keyof typeof formData];
-        if (value !== null && value !== undefined && value !== '') {
-          formDataToSend.append(key, String(value));
-        }
-      });
-
-      // Use no-cors mode which works best with Google Apps Script
-      // Note: We can't read the response with no-cors, but the script will process it
-      try {
-        const fetchPromise = fetch(scriptUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: formDataToSend.toString(),
-          mode: "no-cors",
-          cache: "no-cache",
-        });
-
-        // Wait for the fetch to complete (even though we can't read response)
-        await fetchPromise;
-        
-        // With no-cors mode, if fetch completes without error, assume success
-        // The Google Apps Script will process the data and send email notification
-        console.log("Form submission sent successfully");
-      } catch (networkError: any) {
-        // Even with no-cors, network errors (DNS, connection refused, etc.) will throw
-        console.error("Network error details:", networkError);
-        throw new Error(`Network error: Unable to reach the submission server. Please verify: 1) Your internet connection is working, 2) The Google Apps Script is deployed with "Anyone" access, 3) The script URL is correct. Check browser console (F12) for more details.`);
-      }
-
       // Success
       setSubmitted(true);
       

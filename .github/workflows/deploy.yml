@@ -30,16 +30,17 @@ jobs:
         run: |
           npm install --include=optional
           # Ensure lightningcss native binaries are installed for Linux
-          npm rebuild lightningcss || npm install --force lightningcss
+          npm install lightningcss-linux-x64-gnu --save-optional || true
+          npm rebuild lightningcss || true
       
       - name: Build
         run: |
           if [ "${{ secrets.CUSTOM_DOMAIN }}" == "true" ]; then
             echo "Building for custom domain (no basePath)"
-            CUSTOM_DOMAIN=true NEXT_PRIVATE_SKIP_TURBO=1 npm run build
+            CUSTOM_DOMAIN=true npm run build
           else
             echo "Building for GitHub Pages subdomain (with basePath)"
-            NEXT_PUBLIC_BASE_PATH=/gitsics-website NEXT_PRIVATE_SKIP_TURBO=1 npm run build
+            NEXT_PUBLIC_BASE_PATH=/gitsics-website npm run build
           fi
         env:
           NODE_ENV: production

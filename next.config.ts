@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
+  // Disable Turbopack to avoid lightningcss native binary issues
+  experimental: {
+    turbo: false,
+  },
   ...(basePath && {
     basePath: basePath,
     assetPrefix: basePath,

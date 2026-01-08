@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     icon: `${basePath}/favicon.ico`,
     apple: `${basePath}/icon.svg`,
   },
+  other: {
+    "google-adsense-account": "ca-pub-9112023534705295",
+  },
 };
 
 export default function RootLayout({

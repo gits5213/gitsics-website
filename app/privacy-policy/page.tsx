@@ -95,6 +95,18 @@ export default function PrivacyPolicy() {
             <p className="text-gray-700 mb-4">
               We use cookies and similar tracking technologies to track activity on our website and hold certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.
             </p>
+            <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Third-Party Advertising</h3>
+            <p className="text-gray-700 mb-4">
+              We use Google AdSense to serve advertisements on our website. Google AdSense uses cookies and web beacons to collect information about your visits to this and other websites to provide relevant advertisements about goods and services. You can learn more about how Google uses your data by visiting Google's Privacy & Terms page at{" "}
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                https://policies.google.com/privacy
+              </a>
+              . You can opt out of personalized advertising by visiting{" "}
+              <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                Google's Ads Settings
+              </a>
+              .
+            </p>
           </section>
 
           <section className="mb-8">

@@ -4,7 +4,7 @@ export default function CopyrightNotice() {
       <div className="container mx-auto px-4 max-w-4xl">
         <h1 className="text-4xl font-bold mb-8 text-gray-900">Copyright Notice</h1>
         <div className="bg-white rounded-lg shadow-md p-8 prose prose-lg max-w-none">
-          <p className="text-sm text-gray-600 mb-6">Last Updated: {new Date().toLocaleDateString()}</p>
+          <p className="text-sm text-gray-600 mb-6">Last Updated: January 1, 2025</p>
 
           <section className="mb-8">
             <h2 className="text-2xl font-bold mb-4 text-gray-900">Copyright Ownership</h2>
@@ -14,9 +14,9 @@ export default function CopyrightNotice() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900">Copyright © {new Date().getFullYear()}</h2>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">Copyright © 2025</h2>
             <p className="text-gray-700 mb-4">
-              Copyright © {new Date().getFullYear()} Global I Tech Solutions Inc. All rights reserved.
+              Copyright © 2025 Global I Tech Solutions Inc. All rights reserved.
             </p>
             <p className="text-gray-700 mb-4">
               No part of this website may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of GITSICS, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.

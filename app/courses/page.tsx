@@ -91,7 +91,7 @@ const courses = [
     description: "Learn DevOps tools and practices for QA engineers",
     duration: "8 weeks",
     level: "Intermediate",
-    tools: ["Docker", "Kubernetes", "Jenkins", "GitLab CI", "AWS/Azure"],
+    tools: ["Docker", "Kubernetes", "Jenkins", "GitHub Actions", "Azure DevOps", "GitLab CI", "AWS/Azure"],
     learn: [
       "Docker containerization",
       "CI/CD pipeline setup",
@@ -334,6 +334,76 @@ export default function Courses() {
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
                       More info
+                    </a>
+                  )}
+                  {course.id === "api-testing" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/api-automation/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More Info
+                    </a>
+                  )}
+                  {course.id === "devops-testers" && (
+                    <a
+                      href="http://gitsuniversity.org/courses/devops-pipeline/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More Info
+                    </a>
+                  )}
+                  {course.id === "ai-qa" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/ai-for-qa/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More Info
+                    </a>
+                  )}
+                  {course.id === "performance-tester" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/performance/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More Info
+                    </a>
+                  )}
+                  {course.id === "security-tester" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/security/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More Info
+                    </a>
+                  )}
+                  {course.id === "508-compliance-tester" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/accessibility/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More Info
+                    </a>
+                  )}
+                  {course.id === "digital-marketing" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/digital-marketing/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More Info
                     </a>
                   )}
                 </div>

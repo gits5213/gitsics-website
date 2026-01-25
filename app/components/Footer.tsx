@@ -44,17 +44,17 @@ export default function Footer() {
               <li><Link href="/staffing" className="hover:text-white transition">Staffing Solutions</Link></li>
               <li>
                 <a href="https://gits5213.github.io/gits/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-                  Educational Website
-                </a>
-              </li>
-              <li>
-                <a href="http://visiblehomeinspections.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-                  Visible Home Inspections LLC
+                  Global I Tech Solutions University
                 </a>
               </li>
               <li>
                 <a href="https://mdszaman.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
                   Md Shahnewaz Zaman | Portfolio
+                </a>
+              </li>
+              <li>
+                <a href="http://visiblehomeinspections.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Visible Home Inspections LLC
                 </a>
               </li>
             </ul>

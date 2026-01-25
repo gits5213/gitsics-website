@@ -35,7 +35,7 @@ const courses = [
   },
   {
     id: "qa-automation",
-    title: "QA Automation",
+    title: "QA Automation Engineer",
     description: "Master industry-standard automation frameworks",
     duration: "12 weeks",
     level: "Intermediate",
@@ -52,7 +52,7 @@ const courses = [
   },
   {
     id: "fullstack-sdet",
-    title: "Full-Stack SDET",
+    title: "Full-Stack SDET Engineer",
     description: "Become a complete Software Development Engineer in Test",
     duration: "16 weeks",
     level: "Advanced",
@@ -304,7 +304,39 @@ export default function Courses() {
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-gray-200">
-                <CTAButton href="/enroll" text="Enroll Now" />
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <CTAButton href="/enroll" text="Enroll Now" />
+                  {course.id === "qa-manual" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/manual/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More info
+                    </a>
+                  )}
+                  {course.id === "qa-automation" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/automation/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More info
+                    </a>
+                  )}
+                  {course.id === "fullstack-sdet" && (
+                    <a
+                      href="https://gitsuniversity.org/courses/sdet-roadmap/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      More info
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}

@@ -13,7 +13,8 @@ To deploy your website to GitHub Pages, follow these steps:
 2. Click on **Settings** (top menu)
 3. Scroll down to **Pages** (left sidebar)
 4. Under **Source**, select **GitHub Actions**
-5. Save the settings
+5. Save it
+
 
 ### Step 2: Verify GitHub Actions Workflow
 The deployment workflow (`.github/workflows/deploy.yml`) will automatically:

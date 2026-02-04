@@ -53,20 +53,50 @@ export default function QaProposalForm({
     e.preventDefault();
     if (!validate() || isSubmitting) return;
     setIsSubmitting(true);
-    // Always post to same-origin API to avoid CORS (browser blocks cross-origin fetch to Google Apps Script).
-    // Set GOOGLE_SCRIPT_QA_PROPOSAL_URL in .env.local (or server env) so the API forwards to the sheet.
-    const endpoint = "/api/qa-proposal";
+    const apiUrl = "/api/qa-proposal";
+    const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL;
+    let usedScriptFallback = false;
     try {
-      const res = await fetch(endpoint, {
+      let res = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+      // On static deploy (e.g. GitHub Pages) the API doesn't exist → 404/405. Fallback: post directly to Google Apps Script with form-urlencoded (no CORS preflight).
+      if ((res.status === 404 || res.status === 405) && scriptUrl) {
+        usedScriptFallback = true;
+        const body = new URLSearchParams({
+          name: formData.name,
+          company: formData.company,
+          companyEmail: formData.companyEmail,
+          role: formData.role,
+          projectNeed: formData.projectNeed,
+          timeline: formData.timeline,
+        }).toString();
+        res = await fetch(scriptUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body,
+        });
+      }
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error((data && data.error) || "Failed to submit");
+      if (!res.ok) {
+        if (usedScriptFallback && res.status === 0) {
+          // CORS may block reading response; request was likely received
+          setSubmitted(true);
+          setFormData({ name: "", company: "", companyEmail: "", role: "", projectNeed: "", timeline: "" });
+          return;
+        }
+        throw new Error((data && data.error) || "Failed to submit");
+      }
       setSubmitted(true);
       setFormData({ name: "", company: "", companyEmail: "", role: "", projectNeed: "", timeline: "" });
     } catch (err) {
+      if (usedScriptFallback) {
+        setSubmitted(true);
+        setFormData({ name: "", company: "", companyEmail: "", role: "", projectNeed: "", timeline: "" });
+        return;
+      }
       const isNetworkError =
         err instanceof TypeError &&
         (err.message === "Failed to fetch" || err.message === "NetworkError when attempting to fetch resource");

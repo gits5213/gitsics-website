@@ -14,20 +14,30 @@
 
 function doPost(e) {
   try {
-    if (!e || !e.postData || !e.postData.contents) {
+    var data = {};
+    if (e && e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (parseError) {
+        return ContentService.createTextOutput(JSON.stringify({
+          success: false,
+          error: "Invalid JSON body",
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    } else if (e && e.parameter) {
+      // Form-urlencoded fallback (for static deploy when form posts directly)
+      data = {
+        name: e.parameter.name || "",
+        company: e.parameter.company || "",
+        companyEmail: e.parameter.companyEmail || e.parameter.company_email || "",
+        role: e.parameter.role || "",
+        projectNeed: e.parameter.projectNeed || e.parameter.project_need || "",
+        timeline: e.parameter.timeline || "",
+      };
+    } else {
       return ContentService.createTextOutput(JSON.stringify({
         success: false,
-        error: "Invalid request: Missing body",
-      })).setMimeType(ContentService.MimeType.JSON);
-    }
-
-    var data;
-    try {
-      data = JSON.parse(e.postData.contents);
-    } catch (parseError) {
-      return ContentService.createTextOutput(JSON.stringify({
-        success: false,
-        error: "Invalid JSON body",
+        error: "Invalid request: Missing body or parameters",
       })).setMimeType(ContentService.MimeType.JSON);
     }
 

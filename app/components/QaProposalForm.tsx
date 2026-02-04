@@ -22,6 +22,7 @@ export default function QaProposalForm({
     timeline: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submittedViaScript, setSubmittedViaScript] = useState(false); // true when we couldn't read response (CORS)
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -56,8 +57,6 @@ export default function QaProposalForm({
     const apiUrl = "/api/qa-proposal";
     const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL;
 
-    // On static deploy (e.g. gitsics.com / GitHub Pages) there is no API route → POST to /api/qa-proposal returns 405.
-    // When the Google Script URL is set, post directly to it so the form works without a server.
     const postToScript = (): Promise<Response> => {
       const body = new URLSearchParams({
         name: formData.name,
@@ -75,33 +74,31 @@ export default function QaProposalForm({
     };
 
     try {
-      let res: Response;
-      if (scriptUrl) {
+      // Prefer API first (same-origin): works locally and on hosts with API; no CORS. Fallback to script only when API is missing (404/405).
+      let res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if ((res.status === 404 || res.status === 405) && scriptUrl) {
         res = await postToScript();
-      } else {
-        res = await fetch(apiUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+      } else if (res.status === 404 || res.status === 405) {
+        setErrors({
+          submit:
+            "Form is not configured for this host. Please email info@gitsics.com with your request (name, company, company email, role, project need, timeline) in the meantime.",
         });
-        // Static host: API returns 404/405 and we have no script URL configured
-        if ((res.status === 404 || res.status === 405)) {
-          setErrors({
-            submit:
-              "Form is not configured for this host. Please email info@gitsics.com with your request (name, company, company email, role, project need, timeline) in the meantime.",
-          });
-          return;
-        }
+        return;
       }
 
+      // When we used script fallback, response may be opaque (CORS)
+      if (scriptUrl && (res.status === 0 || res.type === "opaque")) {
+        setSubmittedViaScript(true);
+        setSubmitted(true);
+        setFormData({ name: "", company: "", companyEmail: "", role: "", projectNeed: "", timeline: "" });
+        return;
+      }
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        if (scriptUrl && res.status === 0) {
-          // CORS may block reading response; request was likely received
-          setSubmitted(true);
-          setFormData({ name: "", company: "", companyEmail: "", role: "", projectNeed: "", timeline: "" });
-          return;
-        }
         throw new Error((data && data.error) || "Failed to submit");
       }
       setSubmitted(true);
@@ -126,6 +123,9 @@ export default function QaProposalForm({
     return (
       <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg p-6 text-center">
         <p className="font-semibold">{successMessage}</p>
+        {submittedViaScript && (
+          <p className="mt-2 text-sm text-green-700">If you don&apos;t hear back within 1–2 business days, please email info@gitsics.com.</p>
+        )}
         {successAction ? (
           <p className="mt-3">
             <a

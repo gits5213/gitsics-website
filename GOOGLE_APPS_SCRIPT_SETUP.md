@@ -221,3 +221,26 @@ NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL=https://script.google.com/macros/s/YOU
 
 The script accepts both JSON (from the API) and `application/x-www-form-urlencoded` (from the client fallback).
 
+### 6. Troubleshooting: Form submits but nothing in sheet / no email
+
+1. **Check Executions**  
+   In [Google Apps Script](https://script.google.com/) → your project → **Executions** (left sidebar). Submit the form again and see if a run appears. If there are no runs, the request is not reaching the script (wrong URL or not deployed as "Anyone"). If runs show **Failed**, open one and read the error.
+
+2. **Spreadsheet ID and ownership**  
+   The script uses a fixed spreadsheet ID (see the `spreadsheetId` variable in `google-apps-script-qa-proposal.js`). That spreadsheet must:
+   - Exist and be in the **same Google account** that owns the script (the account that deployed "Execute as: Me").
+   - If you use your own sheet, create it in that account, copy its ID from the URL (`/d/SPREADSHEET_ID/...`), and replace `spreadsheetId` in the script, then save and create a **new deployment** (Deploy → Manage deployments → Edit → New version → Deploy).
+
+3. **Authorize the script once**  
+   In the script editor, run **doPost** once (Run → select `doPost` → Run). When prompted, authorize access to Google Drive and Gmail. After that, web app calls can use those permissions.
+
+4. **Email not received**  
+   Check spam. Ensure the script’s email recipient is correct (`mdzaman.gits@gmail.com` in the script). If Gmail quota is exceeded, the script still writes to the sheet but logs "Failed to send email"; check **Executions** for details.
+
+5. **testDoPost() works but form on website does not save / send email**  
+   - **302 redirect (most common):** When the deployment is not "Anyone", the browser's POST is redirected to a login page. The follow-up request is a GET, so **doGet** runs instead of **doPost** and no data is saved.  
+     - **Fix:** Deploy → Manage deployments → Edit (pencil) → set **Who has access** to **Anyone** → New version → Deploy.  
+     - **Check:** After submitting the form on the site, open **Executions** in the script. If you see **doGet** (not doPost), the request was redirected.  
+   - **Script URL not in production build:** The site must be built with `NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL` set (e.g. in GitHub Actions secrets). If you added the secret after the last deploy, trigger a new deploy so the form uses the script URL.  
+   - **Check in browser:** F12 → Network tab → submit the form. Find the request to `script.google.com`. If status is **302**, fix deployment to "Anyone". If the request goes to your own domain (`/api/qa-proposal`) instead of script.google.com, the env var was not in the build — add the secret and redeploy.
+

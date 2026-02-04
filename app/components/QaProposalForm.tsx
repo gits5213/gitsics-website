@@ -55,33 +55,48 @@ export default function QaProposalForm({
     setIsSubmitting(true);
     const apiUrl = "/api/qa-proposal";
     const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL;
-    let usedScriptFallback = false;
-    try {
-      let res = await fetch(apiUrl, {
+
+    // On static deploy (e.g. gitsics.com / GitHub Pages) there is no API route → POST to /api/qa-proposal returns 405.
+    // When the Google Script URL is set, post directly to it so the form works without a server.
+    const postToScript = (): Promise<Response> => {
+      const body = new URLSearchParams({
+        name: formData.name,
+        company: formData.company,
+        companyEmail: formData.companyEmail,
+        role: formData.role,
+        projectNeed: formData.projectNeed,
+        timeline: formData.timeline,
+      }).toString();
+      return fetch(scriptUrl!, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
       });
-      // On static deploy (e.g. GitHub Pages) the API doesn't exist → 404/405. Fallback: post directly to Google Apps Script with form-urlencoded (no CORS preflight).
-      if ((res.status === 404 || res.status === 405) && scriptUrl) {
-        usedScriptFallback = true;
-        const body = new URLSearchParams({
-          name: formData.name,
-          company: formData.company,
-          companyEmail: formData.companyEmail,
-          role: formData.role,
-          projectNeed: formData.projectNeed,
-          timeline: formData.timeline,
-        }).toString();
-        res = await fetch(scriptUrl, {
+    };
+
+    try {
+      let res: Response;
+      if (scriptUrl) {
+        res = await postToScript();
+      } else {
+        res = await fetch(apiUrl, {
           method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
         });
+        // Static host: API returns 404/405 and we have no script URL configured
+        if ((res.status === 404 || res.status === 405)) {
+          setErrors({
+            submit:
+              "Form is not configured for this host. Please email info@gitsics.com with your request (name, company, company email, role, project need, timeline) in the meantime.",
+          });
+          return;
+        }
       }
+
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        if (usedScriptFallback && res.status === 0) {
+        if (scriptUrl && res.status === 0) {
           // CORS may block reading response; request was likely received
           setSubmitted(true);
           setFormData({ name: "", company: "", companyEmail: "", role: "", projectNeed: "", timeline: "" });
@@ -92,17 +107,12 @@ export default function QaProposalForm({
       setSubmitted(true);
       setFormData({ name: "", company: "", companyEmail: "", role: "", projectNeed: "", timeline: "" });
     } catch (err) {
-      if (usedScriptFallback) {
-        setSubmitted(true);
-        setFormData({ name: "", company: "", companyEmail: "", role: "", projectNeed: "", timeline: "" });
-        return;
-      }
       const isNetworkError =
         err instanceof TypeError &&
         (err.message === "Failed to fetch" || err.message === "NetworkError when attempting to fetch resource");
       setErrors({
         submit: isNetworkError
-          ? "Request could not be sent. If you're on a deployed static site (e.g. GitHub Pages), the form server may be unavailable. Please email info@gitsics.com with your details in the meantime."
+          ? "Request could not be sent. Please check your connection or email info@gitsics.com with your details."
           : err instanceof Error
             ? err.message
             : "Something went wrong. Please try again.",

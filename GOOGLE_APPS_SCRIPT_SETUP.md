@@ -206,7 +206,18 @@ The form **always** submits to your own site at `/api/qa-proposal` (same origin)
 
 ### 4. Sheet layout and email
 
-The script appends one row per submission with columns: **Timestamp**, **Name**, **Company**, **Company Email**, **Role**, **Project Need**, **Timeline**. The first sheet in the workbook is used; if the first row is empty, headers are written automatically.
+The **Request a Consultation** script follows the same pattern as the enrollment script (`google-apps-script.js`): it accepts POST (JSON from the API or form-urlencoded from static deploy fallback), writes to a Google Sheet, and sends an email.
 
-An **email notification** is sent to **mdzaman.gits@gmail.com** for each submission (subject includes the company name). If email fails (e.g. quota), the submission is still saved to the sheet.
+- **Sheet:** The script uses a worksheet named **"consultations"** if it exists; otherwise it uses the first sheet in the workbook (backward compatible). If the sheet is empty, it writes headers: **Timestamp**, **Name**, **Company**, **Company Email**, **Role**, **Project Need**, **Timeline**.
+- **Email:** An email notification is sent to **mdzaman.gits@gmail.com** for each submission (subject includes name and company). If email fails (e.g. quota), the submission is still saved to the sheet.
+
+### 5. Optional: static deploy (e.g. GitHub Pages) fallback
+
+On static hosts where `/api/qa-proposal` is not available, the form can post directly to the Google Apps Script URL. Set in your build/deploy environment (e.g. GitHub Actions secrets):
+
+```env
+NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL=https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
+```
+
+The script accepts both JSON (from the API) and `application/x-www-form-urlencoded` (from the client fallback).
 

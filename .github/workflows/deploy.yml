@@ -5,6 +5,15 @@ on:
     branches:
       - master
 
+# --- Edit these instead of using GitHub Secrets ---
+env:
+  # Your Google Apps Script web app URL for the enrollment form (required for form to work)
+  NEXT_PUBLIC_GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzsNinxHz0jrMIzxlV-U0TZiYci7YEY2SAKWYvjQgsCYFHhlzh53XylziOXI441M_Xw/exec'
+  # Your Google Apps Script web app URL for the QA Proposal form (optional; leave '' if not used)
+  NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL: 'https://script.google.com/macros/s/AKfycbylRYudhr32rNLooFSP9uTfiUp7SfiqRZZU-QE0wK-VfBI7klyp-6J5Ti_2VVQVKzFu/exec'
+  # Set to 'true' if using a custom domain (no basePath); 'false' for github.io (uses /gitsics-website)
+  CUSTOM_DOMAIN: 'true'
+
 permissions:
   contents: read
   pages: write
@@ -40,29 +49,26 @@ jobs:
       
       - name: Check Google Script URLs
         run: |
-          if [ -z "${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" ]; then
-            echo "⚠️  WARNING: NEXT_PUBLIC_GOOGLE_SCRIPT_URL secret is not set!"
-            echo "The enrollment form will not work until you add it (see GOOGLE_APPS_SCRIPT_SETUP.md)"
+          if [ -z "${{ env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" ]; then
+            echo "⚠️  WARNING: NEXT_PUBLIC_GOOGLE_SCRIPT_URL is empty! Edit .github/workflows/deploy.yml env section."
+            echo "The enrollment form will not work until you set it (see GOOGLE_APPS_SCRIPT_SETUP.md)"
           else
             echo "✅ Enrollment Google Script URL is configured"
           fi
-          if [ -z "${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" ]; then
+          if [ -z "${{ env.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" ]; then
             echo "⚠️  Optional: NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL not set — QA Proposal form will not save to Google Sheet on static deploy"
           else
             echo "✅ QA Proposal Google Script URL is configured"
           fi
-        env:
-          NEXT_PUBLIC_GOOGLE_SCRIPT_URL: ${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}
-          NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL: ${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}
       
       - name: Build
         run: |
-          if [ "${{ secrets.CUSTOM_DOMAIN }}" == "true" ]; then
+          if [ "${{ env.CUSTOM_DOMAIN }}" == "true" ]; then
             echo "Building for custom domain (no basePath)"
-            CUSTOM_DOMAIN=true NEXT_PRIVATE_SKIP_TURBO=1 NEXT_PUBLIC_GOOGLE_SCRIPT_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" npm run build
+            CUSTOM_DOMAIN=true NEXT_PRIVATE_SKIP_TURBO=1 NEXT_PUBLIC_GOOGLE_SCRIPT_URL="${{ env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL="${{ env.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" npm run build
           else
             echo "Building for GitHub Pages subdomain (with basePath)"
-            NEXT_PUBLIC_BASE_PATH=/gitsics-website NEXT_PRIVATE_SKIP_TURBO=1 NEXT_PUBLIC_GOOGLE_SCRIPT_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" npm run build
+            NEXT_PUBLIC_BASE_PATH=/gitsics-website NEXT_PRIVATE_SKIP_TURBO=1 NEXT_PUBLIC_GOOGLE_SCRIPT_URL="${{ env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL="${{ env.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" npm run build
           fi
         env:
           NODE_ENV: production

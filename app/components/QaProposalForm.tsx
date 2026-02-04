@@ -70,6 +70,7 @@ export default function QaProposalForm({
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body,
+        redirect: "manual", // don't follow 302 so we can show a clear error (script must be deployed as "Anyone")
       });
     };
 
@@ -82,6 +83,14 @@ export default function QaProposalForm({
       });
       if ((res.status === 404 || res.status === 405) && scriptUrl) {
         res = await postToScript();
+        // 302 = script not deployed as "Anyone" — request was redirected to login, data not saved
+        if (res.type === "opaqueredirect" || res.status === 302) {
+          setErrors({
+            submit:
+              'The form could not reach the server. In Google Apps Script, set the deployment to "Who has access: Anyone" and create a new version, then try again.',
+          });
+          return;
+        }
       } else if (res.status === 404 || res.status === 405) {
         setErrors({
           submit:

@@ -174,3 +174,39 @@ npm run dev
 - Each form submission adds a new row to the sheet
 - Email notifications are sent to **mdzaman.gits@gmail.com**
 
+---
+
+## QA Proposal (Corporate PDF Request) – Optional Setup
+
+When users click **"Download Proposal (xlsx file)"** on the QA proposal page, they must fill out the **Request a Consultation** form. Submissions can be saved to a Google Sheet.
+
+### 1. Use the QA Proposal Google Sheet
+
+Use an existing Google Sheet with ID: **13XMOHp1VjCRROvXx10fVKDonR9f9Vovfhnuq2myvWW0** (or create a new sheet and update the ID in the script below).
+
+### 2. Create a separate Google Apps Script for QA Proposal
+
+1. Go to [Google Apps Script](https://script.google.com/) and create a **New Project**.
+2. Delete the default code and copy **all** code from **`google-apps-script-qa-proposal.js`** in this repo.
+3. Paste into the editor and save (e.g. name: "GITSICS QA Proposal Handler").
+4. Deploy as **Web app**: Deploy → New deployment → Web app → Execute as **Me**, Who has access **Anyone** → Deploy.
+5. Copy the Web App URL (e.g. `https://script.google.com/macros/s/.../exec`).
+
+### 3. Configure environment variable (required for form to work)
+
+The form **always** submits to your own site at `/api/qa-proposal` (same origin), and the API route forwards to Google Apps Script. This avoids "Failed to fetch" / CORS errors that happen when the browser posts directly to Google.
+
+- **Local (e.g. `npm run dev`):** In `.env.local` add (use the **server-side** variable, not `NEXT_PUBLIC_`):
+  ```env
+  GOOGLE_SCRIPT_QA_PROPOSAL_URL=https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
+  ```
+- **Deployments with API (e.g. Vercel):** Set the same variable in the project’s environment (e.g. `GOOGLE_SCRIPT_QA_PROPOSAL_URL`).
+
+**Important:** The consultation form only works when the site is run on a host that supports API routes (e.g. `npm run dev` or Vercel). On a **static-only** host (e.g. GitHub Pages), `/api/qa-proposal` does not exist, so the form will show a network error and users can be directed to email you instead.
+
+### 4. Sheet layout and email
+
+The script appends one row per submission with columns: **Timestamp**, **Name**, **Company**, **Company Email**, **Role**, **Project Need**, **Timeline**. The first sheet in the workbook is used; if the first row is empty, headers are written automatically.
+
+An **email notification** is sent to **mdzaman.gits@gmail.com** for each submission (subject includes the company name). If email fails (e.g. quota), the submission is still saved to the sheet.
+

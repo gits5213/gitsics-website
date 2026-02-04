@@ -447,7 +447,7 @@ export default function Courses() {
             Book a free consultation to discuss which course is right for you
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" text="Book Free Consultation" variant="secondary" />
+            <CTAButton href="/staffing/qa-proposal?open=consultation" text="Book Free Consultation" variant="secondary" />
             <CTAButton href="/how-it-works" text="Learn How It Works" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
           </div>
         </section>

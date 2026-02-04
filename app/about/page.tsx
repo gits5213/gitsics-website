@@ -185,7 +185,7 @@ export default function About() {
             Join us and transform your career today
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" text="Book Free Consultation" />
+            <CTAButton href="/staffing/qa-proposal?open=consultation" text="Book Free Consultation" />
             <CTAButton href="/courses" text="View Our Courses" variant="secondary" />
           </div>
         </section>

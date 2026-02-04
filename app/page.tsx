@@ -155,15 +155,26 @@ export default function Home() {
                     <span>Global Staffing & Consulting</span>
                   </li>
                 </ul>
-                <Link 
-                  href="/staffing" 
-                  className="inline-flex items-center text-white font-semibold hover:text-green-200 transition group/link"
-                >
-                  Learn More
-                  <svg className="w-5 h-5 ml-2 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link 
+                    href="/staffing" 
+                    className="inline-flex items-center text-white font-semibold hover:text-green-200 transition group/link"
+                  >
+                    Learn More
+                    <svg className="w-5 h-5 ml-2 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                  <Link 
+                    href="/staffing/qa-proposal" 
+                    className="inline-flex items-center text-green-200 font-semibold hover:text-white transition group/link text-sm"
+                  >
+                    Download Corporate QA Proposal
+                    <svg className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -362,9 +373,18 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <CTAButton href="/staffing" text="Explore Staffing Solutions" variant="secondary" />
-              <CTAButton href="/contact" text="Request Consultation" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
+              <CTAButton href="/staffing/qa-proposal?open=consultation" text="Request Consultation" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
+              <a
+                href="/staffing/qa-proposal"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg font-semibold bg-white/10 border border-white text-white hover:bg-white hover:text-blue-600 transition-all duration-200"
+              >
+                Download Corporate QA Proposal
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -409,7 +429,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTAButton href="/advanced-career" text="Explore Advanced Track" variant="secondary" />
-              <CTAButton href="/contact" text="Schedule Consultation" variant="outline" className="bg-purple-600 border-purple-600 text-white hover:bg-purple-700" />
+              <CTAButton href="/staffing/qa-proposal?open=consultation" text="Schedule Consultation" variant="outline" className="bg-purple-600 border-purple-600 text-white hover:bg-purple-700" />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-12">
@@ -463,7 +483,7 @@ export default function Home() {
             Join hundreds of successful professionals who started their journey with GITSICS
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/contact" text="Book Free Consultation" variant="secondary" />
+            <CTAButton href="/staffing/qa-proposal?open=consultation" text="Book Free Consultation" variant="secondary" />
             <CTAButton href="/courses" text="View Courses" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
           </div>
         </div>

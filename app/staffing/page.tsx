@@ -70,9 +70,12 @@ export default function Staffing() {
             Global I Tech Solutions Inc. provides comprehensive IT staffing and consulting services globally, 
             connecting businesses with top-tier talent and expert solutions across continents.
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-blue-100 rounded-full">
-            <span className="text-2xl">🌍</span>
-            <span className="text-blue-700 font-semibold">Serving Clients Worldwide</span>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-blue-100 rounded-full">
+              <span className="text-2xl">🌍</span>
+              <span className="text-blue-700 font-semibold">Serving Clients Worldwide</span>
+            </div>
+            <CTAButton href="/staffing/qa-proposal" text="QA Consulting Proposal" variant="secondary" />
           </div>
         </div>
 
@@ -286,7 +289,7 @@ export default function Staffing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTAButton href="/contact" text="Request Talent" variant="secondary" />
-            <CTAButton href="/contact" text="Schedule Consultation" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
+            <CTAButton href="/staffing/qa-proposal?open=consultation" text="Schedule Consultation" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
           </div>
         </section>
       </div>

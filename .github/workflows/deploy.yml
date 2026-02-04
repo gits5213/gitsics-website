@@ -38,28 +38,31 @@ jobs:
           ls -la node_modules/lightningcss/ || echo "lightningcss not found"
           ls -la node_modules/@tailwindcss/oxide/ || echo "oxide not found"
       
-      - name: Check Google Script URL
+      - name: Check Google Script URLs
         run: |
           if [ -z "${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" ]; then
             echo "⚠️  WARNING: NEXT_PUBLIC_GOOGLE_SCRIPT_URL secret is not set!"
-            echo "The enrollment form will not work until you:"
-            echo "1. Set up Google Apps Script (see GOOGLE_APPS_SCRIPT_SETUP.md)"
-            echo "2. Add NEXT_PUBLIC_GOOGLE_SCRIPT_URL as a GitHub secret"
-            echo "3. Redeploy the site"
+            echo "The enrollment form will not work until you add it (see GOOGLE_APPS_SCRIPT_SETUP.md)"
           else
-            echo "✅ Google Script URL is configured"
+            echo "✅ Enrollment Google Script URL is configured"
+          fi
+          if [ -z "${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" ]; then
+            echo "⚠️  Optional: NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL not set — QA Proposal form will not save to Google Sheet on static deploy"
+          else
+            echo "✅ QA Proposal Google Script URL is configured"
           fi
         env:
           NEXT_PUBLIC_GOOGLE_SCRIPT_URL: ${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}
+          NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL: ${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}
       
       - name: Build
         run: |
           if [ "${{ secrets.CUSTOM_DOMAIN }}" == "true" ]; then
             echo "Building for custom domain (no basePath)"
-            CUSTOM_DOMAIN=true NEXT_PRIVATE_SKIP_TURBO=1 NEXT_PUBLIC_GOOGLE_SCRIPT_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" npm run build
+            CUSTOM_DOMAIN=true NEXT_PRIVATE_SKIP_TURBO=1 NEXT_PUBLIC_GOOGLE_SCRIPT_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" npm run build
           else
             echo "Building for GitHub Pages subdomain (with basePath)"
-            NEXT_PUBLIC_BASE_PATH=/gitsics-website NEXT_PRIVATE_SKIP_TURBO=1 NEXT_PUBLIC_GOOGLE_SCRIPT_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" npm run build
+            NEXT_PUBLIC_BASE_PATH=/gitsics-website NEXT_PRIVATE_SKIP_TURBO=1 NEXT_PUBLIC_GOOGLE_SCRIPT_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_URL }}" NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL="${{ secrets.NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL }}" npm run build
           fi
         env:
           NODE_ENV: production
@@ -72,6 +75,11 @@ jobs:
             exit 1
           fi
           ls -la out/
+          if [ ! -f "out/resource/Worksheet_in_GITS-Training_Curriculum_Proposal_v1.xlsx" ]; then
+            echo "Error: Proposal xlsx not found at out/resource/ — ensure public/resource/Worksheet_in_GITS-Training_Curriculum_Proposal_v1.xlsx exists"
+            exit 1
+          fi
+          echo "Proposal xlsx found in build output"
       
       - name: Setup Pages
         uses: actions/configure-pages@v4

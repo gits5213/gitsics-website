@@ -1,4 +1,3 @@
-import QaProposalForm from "../../components/QaProposalForm";
 import ProposalDownloadModal from "../../components/ProposalDownloadModal";
 
 const servicesIncluded = [
@@ -45,7 +44,7 @@ const whyUs = [
 
 export const metadata = {
   title: "QA & Test Automation Consulting Proposal | GITSICS",
-  description: "Corporate QA consulting proposal: test strategy, automation frameworks, CI/CD, 508 compliance, performance & security testing. Request a consultation or download the proposal.",
+  description: "Corporate QA consulting proposal: test strategy, automation frameworks, CI/CD, 508 compliance, performance & security testing. Download the proposal or contact us.",
 };
 
 export default function QaProposalPage() {
@@ -128,12 +127,12 @@ export default function QaProposalPage() {
           </div>
         </section>
 
-        {/* Contact block + form */}
+        {/* Contact CTA */}
         <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-12 rounded-lg mb-8">
-          <div className="max-w-4xl mx-auto px-4 text-center mb-10">
+          <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
             <p className="text-blue-100 mb-6">
-              Email, call, or WhatsApp — or submit the form below for a quick response.
+              Email, call, or WhatsApp — or use our contact page for a quick response.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-blue-50">
               <a href="mailto:info@gitsics.com" className="inline-flex items-center gap-2 hover:text-white transition">
@@ -146,12 +145,15 @@ export default function QaProposalPage() {
                 <span>WhatsApp</span>
               </a>
             </div>
+            <div className="mt-8">
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg font-semibold bg-white text-blue-600 hover:bg-blue-50 transition"
+              >
+                Request Consultation
+              </a>
+            </div>
           </div>
-        </section>
-
-        <section className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">Request a Consultation</h2>
-          <QaProposalForm />
         </section>
       </div>
     </div>

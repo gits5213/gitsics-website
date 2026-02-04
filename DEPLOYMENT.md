@@ -47,13 +47,6 @@ npm run build
 # GitHub Actions will handle the deployment automatically
 ```
 
-## 📋 Request a Consultation form (production)
-
-For the consultation form on the live site to save to Google Sheets and send email:
-
-1. **Deployment config:** In `.github/workflows/deploy.yml`, set **`NEXT_PUBLIC_GOOGLE_SCRIPT_URL`** and **`NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL`** in the top `env:` block to your Google Apps Script web app URLs. Commit and push; the next build will use them (no GitHub Secrets needed).
-2. **Google Apps Script:** Deploy the web app with **Who has access: Anyone**. If it’s set to “Anyone with Google account,” the form will get a redirect (302) and won’t save. See `GOOGLE_APPS_SCRIPT_SETUP.md` for full setup.
-
 ## 🐛 Troubleshooting
 
 If deployment fails:
@@ -61,9 +54,4 @@ If deployment fails:
 2. Ensure GitHub Pages is enabled in Settings > Pages
 3. Verify the workflow file exists at `.github/workflows/deploy.yml`
 4. Make sure you have write permissions to the repository
-
-If the consultation form doesn’t save or send email in production:
-- Ensure the script is deployed as **Anyone** (not “Anyone with Google account”).
-- Ensure **`NEXT_PUBLIC_GOOGLE_SCRIPT_QA_PROPOSAL_URL`** is set in `.github/workflows/deploy.yml` (top `env:` block) and you pushed and redeployed.
-- Hard refresh the site (Ctrl+Shift+R) to avoid cached JavaScript.
 

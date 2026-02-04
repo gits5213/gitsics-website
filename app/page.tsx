@@ -375,7 +375,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <CTAButton href="/staffing" text="Explore Staffing Solutions" variant="secondary" />
-              <CTAButton href="/staffing/qa-proposal?open=consultation" text="Request Consultation" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
+              <CTAButton href="/contact" text="Request Consultation" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
               <a
                 href="/staffing/qa-proposal"
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg font-semibold bg-white/10 border border-white text-white hover:bg-white hover:text-blue-600 transition-all duration-200"
@@ -429,7 +429,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTAButton href="/advanced-career" text="Explore Advanced Track" variant="secondary" />
-              <CTAButton href="/staffing/qa-proposal?open=consultation" text="Schedule Consultation" variant="outline" className="bg-purple-600 border-purple-600 text-white hover:bg-purple-700" />
+              <CTAButton href="/contact" text="Request Consultation" variant="outline" className="bg-purple-600 border-purple-600 text-white hover:bg-purple-700" />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-12">
@@ -483,7 +483,7 @@ export default function Home() {
             Join hundreds of successful professionals who started their journey with GITSICS
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/staffing/qa-proposal?open=consultation" text="Book Free Consultation" variant="secondary" />
+            <CTAButton href="/contact" text="Request Consultation" variant="secondary" />
             <CTAButton href="/courses" text="View Courses" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
           </div>
         </div>

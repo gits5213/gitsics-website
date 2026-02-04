@@ -154,7 +154,7 @@ export default function HowItWorks() {
           <p className="text-xl mb-8 text-blue-100">
             Book your free consultation today and take the first step toward your dream career
           </p>
-          <CTAButton href="/staffing/qa-proposal?open=consultation" text="Book Free Consultation" variant="secondary" />
+          <CTAButton href="/contact" text="Request Consultation" variant="secondary" />
         </section>
       </div>
     </div>

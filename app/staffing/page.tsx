@@ -289,7 +289,7 @@ export default function Staffing() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTAButton href="/contact" text="Request Talent" variant="secondary" />
-            <CTAButton href="/staffing/qa-proposal?open=consultation" text="Schedule Consultation" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
+            <CTAButton href="/contact" text="Request Consultation" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
           </div>
         </section>
       </div>

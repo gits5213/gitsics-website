@@ -170,7 +170,7 @@ export default function SuccessStories() {
             Join hundreds of successful professionals who started their journey with GITSICS
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton href="/staffing/qa-proposal?open=consultation" text="Book Free Consultation" variant="secondary" />
+            <CTAButton href="/contact" text="Request Consultation" variant="secondary" />
             <CTAButton href="/courses" text="View Courses" variant="outline" className="bg-white/10 border-white text-white hover:bg-white hover:text-blue-600" />
           </div>
         </section>

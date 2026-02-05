@@ -321,16 +321,16 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { title: "Basic Computer Skills + Job Search Essentials", desc: "Beginner digital literacy: computers, Office, email, online job applications, and safe software use for adults and job seekers. Program price: $500.", anchor: "basic-computer-job-search" },
-              { title: "QA Manual Testing", desc: "Foundation of software testing principles and methodologies" },
-              { title: "QA Automation", desc: "Playwright, Selenium, Cypress - Master industry-standard tools" },
-              { title: "Full-Stack SDET", desc: "End-to-end testing expertise across the entire tech stack" },
-              { title: "API Testing & Automation", desc: "REST, GraphQL, and API testing frameworks" },
-              { title: "DevOps for Testers", desc: "CI/CD pipelines, Docker, Kubernetes for QA engineers" },
-              { title: "AI for QA", desc: "RAG, GenAI, and automation intelligence for modern testing" },
-              { title: "Performance Tester", desc: "Master load, stress, and performance testing with JMeter and advanced tools" },
-              { title: "Security Tester", desc: "OWASP Top 10, API security, vulnerability scanning, and security testing automation" },
-              { title: "508 Compliance Tester", desc: "Accessibility testing and WCAG compliance for inclusive software applications" },
-              { title: "Digital Marketing", desc: "SEO, Social Media Marketing, PPC, Content Marketing, Email Marketing, and Analytics" },
+              { title: "QA Manual Testing", desc: "Foundation of software testing principles and methodologies", anchor: "qa-manual" },
+              { title: "QA Automation", desc: "Playwright, Selenium, Cypress - Master industry-standard tools", anchor: "qa-automation" },
+              { title: "Full-Stack SDET", desc: "End-to-end testing expertise across the entire tech stack", anchor: "fullstack-sdet" },
+              { title: "API Testing & Automation", desc: "REST, GraphQL, and API testing frameworks", anchor: "api-testing" },
+              { title: "DevOps for Testers", desc: "CI/CD pipelines, Docker, Kubernetes for QA engineers", anchor: "devops-testers" },
+              { title: "AI for QA", desc: "RAG, GenAI, and automation intelligence for modern testing", anchor: "ai-qa" },
+              { title: "Performance Tester", desc: "Master load, stress, and performance testing with JMeter and advanced tools", anchor: "performance-tester" },
+              { title: "Security Tester", desc: "OWASP Top 10, API security, vulnerability scanning, and security testing automation", anchor: "security-tester" },
+              { title: "508 Compliance Tester", desc: "Accessibility testing and WCAG compliance for inclusive software applications", anchor: "508-compliance-tester" },
+              { title: "Digital Marketing", desc: "SEO, Social Media Marketing, PPC, Content Marketing, Email Marketing, and Analytics", anchor: "digital-marketing" },
             ].map((course) => (
               <div key={course.title} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition">
                 <h3 className="text-xl font-semibold mb-3 text-gray-900">{course.title}</h3>

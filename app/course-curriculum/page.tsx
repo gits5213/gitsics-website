@@ -72,7 +72,7 @@ export default function CourseCurriculum() {
               aria-labelledby="tab-bcs-jse"
               className="p-8 md:p-12"
             >
-              <div className="max-w-4xl mx-auto">
+              <div id="bcs-jse-download-content" className="max-w-4xl mx-auto">
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">
                   Basic Computer Skills + Job Search Essentials
                 </h2>
@@ -131,7 +131,7 @@ export default function CourseCurriculum() {
                   </dl>
                 </section>
 
-                <section className="mb-10">
+                <section className="mb-10 print-start-page-2">
                   <h3 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b-2 border-blue-600">
                     12-Session Curriculum
                   </h3>
@@ -342,7 +342,7 @@ export default function CourseCurriculum() {
                       homework: "Review your email and computer passwords; enable 2FA on email if possible. Keep your resume, tracker, and job search folder updated.",
                     },
                   ].map((s) => (
-                    <div key={s.session} className="mb-10 pb-10 border-b border-gray-200 last:border-0 last:pb-0">
+                    <div key={s.session} className="session-block mb-10 pb-10 border-b border-gray-200 last:border-0 last:pb-0">
                       <h4 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
                         <span className="inline-flex items-center justify-center min-w-[3rem] h-12 px-3 rounded-lg bg-blue-600 text-white text-lg font-bold">Session {s.session}</span>
                       </h4>
@@ -369,8 +369,19 @@ export default function CourseCurriculum() {
                   ))}
                 </section>
 
-                <div className="pt-6 border-t border-gray-200 flex flex-col sm:flex-row gap-4">
+                <div className="pt-6 border-t border-gray-200 flex flex-col sm:flex-row gap-4 flex-wrap no-print">
                   <CTAButton href="/enroll" text="Enroll Now" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50" />
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-lg font-semibold border-2 border-gray-700 text-gray-700 bg-white hover:bg-gray-50 transition"
+                    aria-label="Print or save BCS-JSE curriculum as PDF"
+                  >
+                    <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Print / Save as PDF
+                  </button>
                 </div>
               </div>
             </div>

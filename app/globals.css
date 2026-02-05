@@ -69,3 +69,40 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Print: show only BCS-JSE curriculum when user prints or saves as PDF */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #bcs-jse-download-content,
+  #bcs-jse-download-content * {
+    visibility: visible;
+  }
+  #bcs-jse-download-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .no-print {
+    display: none !important;
+  }
+  /* 12-Session Curriculum starts on page 2 */
+  .print-start-page-2 {
+    page-break-before: always;
+    break-before: page;
+  }
+  /* One lesson per page: force new page after each session, avoid breaking inside */
+  .session-block {
+    page-break-after: always;
+    break-after: page;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .session-block:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}

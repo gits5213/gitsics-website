@@ -1,5 +1,14 @@
 import CTAButton from "../components/CTAButton";
 
+export const metadata = {
+  title: "How It Works",
+  description: "Start with a free consultation, get a personalized QA → Automation → SDET training path, hands-on live training, career branding, and job placement support. See how GITSICS works.",
+  openGraph: {
+    title: "How It Works | GITSICS Training & Placement",
+    description: "Free consultation → Personalized training path → Live training → Career branding → Job placement.",
+  },
+};
+
 export default function HowItWorks() {
   const steps = [
     {

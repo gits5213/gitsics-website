@@ -1,5 +1,14 @@
 import CTAButton from "../components/CTAButton";
 
+export const metadata = {
+  title: "Career Services",
+  description: "Resume writing, LinkedIn optimization, GitHub portfolio, mock interviews, job search strategy, and 1-on-1 mentorship for QA and SDET professionals. Get job-ready with GITSICS.",
+  openGraph: {
+    title: "Career Services | Resume, LinkedIn & Job Search | GITSICS",
+    description: "Professional resume optimization, LinkedIn profile, mock interviews, and mentorship for QA/SDET careers.",
+  },
+};
+
 const services = [
   {
     icon: "📝",

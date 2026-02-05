@@ -1,5 +1,14 @@
 import CTAButton from "../components/CTAButton";
 
+export const metadata = {
+  title: "Staffing Solutions",
+  description: "Contract staffing, SDET/QA engineers placement, and automation consultants. Global I Tech Solutions connects businesses with top QA talent. Onshore, offshore, and remote options.",
+  openGraph: {
+    title: "Staffing Solutions | QA & SDET Placement | GITSICS",
+    description: "Pre-screened QA engineers, SDETs, and automation consultants. Flexible staffing and team augmentation.",
+  },
+};
+
 const staffingServices = [
   {
     title: "Contract Staffing",

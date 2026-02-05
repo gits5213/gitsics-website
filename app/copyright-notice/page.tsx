@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Copyright Notice",
+  description: "Copyright notice for Global I Tech Solutions Inc. (GITSICS) website. All content protected by U.S. and international copyright laws.",
+  robots: { index: true, follow: true },
+};
+
 export default function CopyrightNotice() {
   return (
     <div className="min-h-screen py-16 bg-gray-50">

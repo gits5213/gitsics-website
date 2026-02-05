@@ -1,5 +1,14 @@
 import CTAButton from "../components/CTAButton";
 
+export const metadata = {
+  title: "Advanced Career",
+  description: "Advance from mid-level QA to Senior SDET, Lead Automation Engineer, or QA Architect. Enterprise frameworks, DevOps, AI-driven QA, and architecture skills at GITSICS.",
+  openGraph: {
+    title: "Advanced Career | Senior SDET & QA Architect | GITSICS",
+    description: "Designed for mid-level QA professionals. Step into Senior SDET, Lead Automation Engineer, or QA Architect roles.",
+  },
+};
+
 const advancedTopics = [
   {
     icon: "🏗️",

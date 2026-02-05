@@ -1,6 +1,32 @@
 import Link from "next/link";
 import CTAButton from "../components/CTAButton";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://gitsics.com";
+
+export const metadata = {
+  title: "Training Programs",
+  description: "QA Manual & Automation, Full-Stack SDET, API Testing, DevOps, AI for QA, Performance & Security Testing, 508 Compliance, Digital Marketing, and Basic Computer Skills. In-person, online & corporate. Enroll today.",
+  keywords: [
+    "QA Manual Testing course",
+    "QA Automation training",
+    "SDET training",
+    "API testing course",
+    "DevOps for testers",
+    "AI for QA",
+    "Performance testing course",
+    "Security testing training",
+    "508 compliance testing",
+    "Digital Marketing course",
+    "Basic computer skills training",
+    "job search essentials",
+  ],
+  openGraph: {
+    title: "Training Programs | QA, SDET & Digital Literacy | GITSICS",
+    description: "11+ training programs from beginner to advanced. QA, SDET, digital literacy, and more. In-person, online & corporate.",
+    url: `${siteUrl}/courses/`,
+  },
+};
+
 const courses = [
   {
     id: "qa-manual",
@@ -232,12 +258,36 @@ const courses = [
 ];
 
 export default function Courses() {
+  const coursesSchema = courses.map((course) => {
+    const base: Record<string, unknown> = {
+      "@type": "Course",
+      "@id": `${siteUrl}/courses/#${course.id}`,
+      name: course.title,
+      description: course.description,
+      provider: {
+        "@type": "Organization",
+        name: "Global I Tech Solutions Inc.",
+        sameAs: siteUrl,
+      },
+      educationalLevel: course.level,
+    };
+    if ("price" in course && typeof course.price === "string" && course.price) {
+      const p = Number(course.price.replace(/\D/g, ""));
+      if (p > 0) base.offers = { "@type": "Offer", price: p, priceCurrency: "USD" };
+    }
+    return base;
+  });
+
   return (
     <div className="min-h-screen py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(coursesSchema) }}
+      />
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-4 text-gray-900">Training Programs</h1>
+          <h1 id="courses-heading" className="text-5xl font-bold mb-4 text-gray-900">Training Programs</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Comprehensive courses designed to take you from beginner to job-ready professional
           </p>
@@ -269,9 +319,9 @@ export default function Courses() {
         </div>
 
         {/* Courses Grid */}
-        <div className="space-y-12 mb-16">
+        <section aria-labelledby="courses-heading" className="space-y-12 mb-16">
           {courses.map((course) => (
-            <div key={course.id} id={course.id} className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-blue-600 scroll-mt-24">
+            <article key={course.id} id={course.id} className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-blue-600 scroll-mt-24">
               <div className="flex flex-col md:flex-row gap-8">
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-4">
@@ -446,9 +496,9 @@ export default function Courses() {
                   )}
                 </div>
               </div>
-            </div>
+            </article>
           ))}
-        </div>
+        </section>
 
         {/* Certification Path */}
         <section className="bg-blue-50 py-12 rounded-lg mb-16">

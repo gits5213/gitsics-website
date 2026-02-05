@@ -1,5 +1,14 @@
 import ProposalDownloadModal from "../../components/ProposalDownloadModal";
 
+export const metadata = {
+  title: "Corporate QA Proposal",
+  description: "Corporate QA consulting proposal: test strategy, automation frameworks, CI/CD, 508 compliance, performance & security testing. Download the proposal or contact GITSICS.",
+  openGraph: {
+    title: "Corporate QA Proposal | GITSICS",
+    description: "Comprehensive QA training and staffing proposal for enterprises. Playwright, Selenium, API testing, and more.",
+  },
+};
+
 const servicesIncluded = [
   "HTML",
   "CSS",
@@ -41,11 +50,6 @@ const whyUs = [
   { title: "Pre-trained talent", desc: "SDETs and automation engineers ready to deploy with minimal ramp-up." },
   { title: "Quick deployment", desc: "Fast turnaround from requirement to deployment for your projects." },
 ];
-
-export const metadata = {
-  title: "QA & Test Automation Consulting Proposal | GITSICS",
-  description: "Corporate QA consulting proposal: test strategy, automation frameworks, CI/CD, 508 compliance, performance & security testing. Download the proposal or contact us.",
-};
 
 export default function QaProposalPage() {
   return (

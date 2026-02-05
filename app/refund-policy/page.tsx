@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Refund & Cancellation Policy",
+  description: "GITSICS refund and cancellation policy for training programs and services. Eligibility, processing, and timeline for refunds.",
+  robots: { index: true, follow: true },
+};
+
 export default function RefundPolicy() {
   return (
     <div className="min-h-screen py-16 bg-gray-50">

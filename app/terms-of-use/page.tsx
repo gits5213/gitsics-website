@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Terms of Use",
+  description: "Terms of Use for the GITSICS website. Acceptance of terms, use license, and disclaimers for Global I Tech Solutions Inc.",
+  robots: { index: true, follow: true },
+};
+
 export default function TermsOfUse() {
   return (
     <div className="min-h-screen py-16 bg-gray-50">

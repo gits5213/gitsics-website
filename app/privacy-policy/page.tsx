@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Privacy Policy",
+  description: "GITSICS Privacy Policy. How we collect, use, and protect your information when you use our website and training services.",
+  robots: { index: true, follow: true },
+};
+
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen py-16 bg-gray-50">

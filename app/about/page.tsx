@@ -1,16 +1,25 @@
 import CTAButton from "../components/CTAButton";
 
+export const metadata = {
+  title: "About Us",
+  description: "Global I Tech Solutions Inc. (GITSICS) — 15+ years of IT training, staffing & consulting. We train, mentor, and place QA/SDET and digital literacy professionals globally.",
+  openGraph: {
+    title: "About GITSICS | IT Training, Staffing & Consulting",
+    description: "Transforming careers. Powering innovation. From Learning to Earning — Globally.",
+  },
+};
+
 export default function About() {
   return (
     <div className="min-h-screen py-16">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-4 text-gray-900">About Global I Tech Solutions Inc.</h1>
+        <section className="text-center mb-16" aria-labelledby="about-heading">
+          <h1 id="about-heading" className="text-5xl font-bold mb-4 text-gray-900">About Global I Tech Solutions Inc.</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Transforming Careers. Powering Innovation. From Learning to Earning — Globally.
           </p>
-        </div>
+        </section>
 
         {/* Company Overview */}
         <section className="mb-16">

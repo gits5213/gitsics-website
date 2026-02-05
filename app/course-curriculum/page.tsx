@@ -45,6 +45,7 @@ export default function CourseCurriculum() {
           <nav className="flex flex-wrap gap-1" aria-label="Course curriculum tabs">
             {tabs.map((tab) => (
               <button
+                type="button"
                 key={tab.id}
                 id={`tab-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}

@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --focus-ring: 2px solid #2563eb;
+  --focus-offset: 2px;
 }
 
 @theme inline {
@@ -21,6 +23,29 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/* Accessibility: visible focus for keyboard users (Lighthouse) */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* Tap targets: use .tap-target on nav links and buttons (min 44x44px) */
+/* Skip link: visible only when focused (accessibility) */
+.skip-link {
+  transition: transform 0.2s ease;
+}
+
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 html {

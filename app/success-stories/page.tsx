@@ -1,5 +1,14 @@
 import CTAButton from "../components/CTAButton";
 
+export const metadata = {
+  title: "Success Stories",
+  description: "Real success stories from GITSICS graduates: from manual QA to SDET, career changers to QA Lead. See how our training and placement support transformed careers.",
+  openGraph: {
+    title: "Success Stories | GITSICS Graduates",
+    description: "Hear from professionals who transformed their careers with GITSICS training and job placement.",
+  },
+};
+
 const stories = [
   {
     name: "Sarah M.",

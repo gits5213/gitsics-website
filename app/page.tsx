@@ -1,7 +1,50 @@
 import Link from "next/link";
 import CTAButton from "./components/CTAButton";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://gitsics.com";
+
+export const metadata = {
+  title: "QA, SDET & Digital Literacy Training | Job Placement | GITSICS",
+  description: "Expert IT training and job placement: QA Manual & Automation, Full-Stack SDET, API Testing, DevOps, Digital Marketing, and Basic Computer Skills. In-person, online & corporate. Enroll today.",
+  openGraph: {
+    title: "QA, SDET & Digital Literacy Training | Job Placement | GITSICS",
+    description: "Expert IT training and job placement. 11+ programs from beginner to advanced. In-person, online & corporate.",
+    url: siteUrl,
+  },
+};
+
+const trainingProgramsForSchema = [
+  { name: "Basic Computer Skills + Job Search Essentials", url: `${siteUrl}/courses/#basic-computer-job-search` },
+  { name: "QA Manual Testing", url: `${siteUrl}/courses/#qa-manual` },
+  { name: "QA Automation", url: `${siteUrl}/courses/#qa-automation` },
+  { name: "Full-Stack SDET", url: `${siteUrl}/courses/#fullstack-sdet` },
+  { name: "API Testing & Automation", url: `${siteUrl}/courses/#api-testing` },
+  { name: "DevOps for Testers", url: `${siteUrl}/courses/#devops-testers` },
+  { name: "AI for QA", url: `${siteUrl}/courses/#ai-qa` },
+  { name: "Performance Tester", url: `${siteUrl}/courses/#performance-tester` },
+  { name: "Security Tester", url: `${siteUrl}/courses/#security-tester` },
+  { name: "508 Compliance Tester", url: `${siteUrl}/courses/#508-compliance-tester` },
+  { name: "Digital Marketing", url: `${siteUrl}/courses/#digital-marketing` },
+];
+
 export default function Home() {
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Our Training Programs",
+    description: "Comprehensive IT and digital literacy training programs from GITSICS.",
+    numberOfItems: trainingProgramsForSchema.length,
+    itemListElement: trainingProgramsForSchema.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Course",
+        name: item.name,
+        url: item.url,
+      },
+    })),
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -311,14 +354,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Courses Overview */}
-      <section className="py-16">
+      {/* Courses Overview - Training Programs */}
+      <section
+        className="py-16"
+        aria-labelledby="training-programs-heading"
+      >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+        />
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">Our Training Programs</h2>
+          <h2 id="training-programs-heading" className="text-4xl font-bold text-center mb-4 text-gray-900">
+            Our Training Programs
+          </h2>
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
             Comprehensive courses designed to take you from beginner to job-ready professional
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
             {[
               { title: "Basic Computer Skills + Job Search Essentials", desc: "Beginner digital literacy: computers, Office, email, online job applications, and safe software use for adults and job seekers. Program price: $500.", anchor: "basic-computer-job-search" },
               { title: "QA Manual Testing", desc: "Foundation of software testing principles and methodologies", anchor: "qa-manual" },
@@ -332,16 +384,17 @@ export default function Home() {
               { title: "508 Compliance Tester", desc: "Accessibility testing and WCAG compliance for inclusive software applications", anchor: "508-compliance-tester" },
               { title: "Digital Marketing", desc: "SEO, Social Media Marketing, PPC, Content Marketing, Email Marketing, and Analytics", anchor: "digital-marketing" },
             ].map((course) => (
-              <div key={course.title} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition">
+              <article key={course.title} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition" role="listitem">
                 <h3 className="text-xl font-semibold mb-3 text-gray-900">{course.title}</h3>
                 <p className="text-gray-600 mb-4">{course.desc}</p>
                 <Link
                   href={course.anchor ? `/courses#${course.anchor}` : "/courses"}
                   className="text-blue-600 font-semibold hover:underline"
+                  aria-label={`Learn more about ${course.title} training program`}
                 >
                   Learn More →
                 </Link>
-              </div>
+              </article>
             ))}
           </div>
           <div className="text-center mt-12">

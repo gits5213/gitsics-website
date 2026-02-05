@@ -1,13 +1,51 @@
 import CTAButton from "../components/CTAButton";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://gitsics.com";
+
+export const metadata = {
+  title: "Contact Us",
+  description: "Contact GITSICS for training, staffing, and consulting. Email info@gitsics.com, request a consultation, or visit us in New York. We're here to help you transform your career.",
+  openGraph: {
+    title: "Contact GITSICS | Get In Touch",
+    description: "We're here to help you start your career transformation journey.",
+    url: `${siteUrl}/contact/`,
+  },
+};
+
+const contactPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Contact GITSICS",
+  description: "Contact Global I Tech Solutions Inc. for IT training, staffing, and consulting.",
+  url: `${siteUrl}/contact/`,
+  mainEntity: {
+    "@type": "Organization",
+    name: "Global I Tech Solutions Inc.",
+    email: "info@gitsics.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "202nd Street & Hillside Avenue",
+      addressLocality: "New York",
+      addressRegion: "NY",
+      postalCode: "11423",
+      addressCountry: "US",
+    },
+    url: siteUrl,
+  },
+};
+
 export default function Contact() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
+      />
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20">
+      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20" aria-labelledby="contact-heading">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Get In Touch</h1>
+            <h1 id="contact-heading" className="text-5xl md:text-6xl font-bold mb-6">Get In Touch</h1>
             <p className="text-xl md:text-2xl text-blue-100 mb-8">
               We're here to help you start your career transformation journey
             </p>

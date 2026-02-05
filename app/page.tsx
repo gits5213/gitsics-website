@@ -320,6 +320,7 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
+              { title: "Basic Computer Skills + Job Search Essentials", desc: "Beginner digital literacy: computers, Office, email, online job applications, and safe software use for adults and job seekers. Program price: $500.", anchor: "basic-computer-job-search" },
               { title: "QA Manual Testing", desc: "Foundation of software testing principles and methodologies" },
               { title: "QA Automation", desc: "Playwright, Selenium, Cypress - Master industry-standard tools" },
               { title: "Full-Stack SDET", desc: "End-to-end testing expertise across the entire tech stack" },
@@ -334,7 +335,10 @@ export default function Home() {
               <div key={course.title} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition">
                 <h3 className="text-xl font-semibold mb-3 text-gray-900">{course.title}</h3>
                 <p className="text-gray-600 mb-4">{course.desc}</p>
-                <Link href="/courses" className="text-blue-600 font-semibold hover:underline">
+                <Link
+                  href={course.anchor ? `/courses#${course.anchor}` : "/courses"}
+                  className="text-blue-600 font-semibold hover:underline"
+                >
                   Learn More →
                 </Link>
               </div>

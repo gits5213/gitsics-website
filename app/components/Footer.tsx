@@ -41,6 +41,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Services</h4>
             <ul className="space-y-2">
+              <li><Link href="/course-curriculum" className="hover:text-white transition">Course Curriculum</Link></li>
               <li><Link href="/advanced-career" className="hover:text-white transition">Advanced Career</Link></li>
               <li><Link href="/career-services" className="hover:text-white transition">Career Services</Link></li>
               <li><Link href="/staffing" className="hover:text-white transition">Staffing Solutions</Link></li>

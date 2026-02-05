@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 const courses = [
+  { id: "basic-computer-job-search", title: "Basic Computer Skills + Job Search Essentials", duration: "6 weeks", level: "Beginner" },
   { id: "qa-manual", title: "QA Manual Testing", duration: "8 weeks", level: "Beginner" },
   { id: "qa-automation", title: "QA Automation", duration: "12 weeks", level: "Intermediate" },
   { id: "fullstack-sdet", title: "Full-Stack SDET", duration: "16 weeks", level: "Advanced" },

@@ -205,6 +205,30 @@ const courses = [
       "Analytics dashboard and reporting",
     ],
   },
+  {
+    id: "basic-computer-job-search",
+    title: "Basic Computer Skills + Job Search Essentials",
+    description: "Beginner digital literacy for adults, job seekers, and newcomers. Build confidence with computers, Microsoft Office, email, and online job applications. Ideal for those with limited computer experience who want practical skills for daily life and employment in the U.S.",
+    duration: "6 weeks",
+    level: "Beginner",
+    price: "$500",
+    tools: ["Windows/Mac", "Microsoft Word", "Excel", "PowerPoint", "Email", "Indeed", "LinkedIn", "Zoom", "Chrome", "Adobe Reader", "Cloud & USB"],
+    learn: [
+      "Use a Windows/Mac computer confidently: mouse/keyboard, settings, Wi‑Fi, printers, and basic troubleshooting (restart, updates, storage)",
+      "Create and manage files like a pro: folders, downloads, USB/cloud basics, naming and organizing documents for work and school",
+      "Use Microsoft Office for general purpose: Word (resume/letters formatting), Excel (simple lists, budget, job tracker), PowerPoint (basic slides)",
+      "Apply for jobs online end-to-end: create email, search jobs (Indeed, LinkedIn, company sites), complete applications, upload resume, and track submissions",
+      "Install and safely manage software: download from trusted sources, install/uninstall apps (Zoom, Chrome, Adobe Reader, Office), avoid scams/malware, and set up security basics",
+    ],
+    projects: [
+      "Set up and navigate your computer with confidence",
+      "Organize files and folders for work and school",
+      "Create a formatted resume and cover letter in Word",
+      "Build a simple budget or job tracker in Excel",
+      "Complete at least one full online job application with resume upload",
+      "Install and configure essential apps safely",
+    ],
+  },
 ];
 
 export default function Courses() {
@@ -247,7 +271,7 @@ export default function Courses() {
         {/* Courses Grid */}
         <div className="space-y-12 mb-16">
           {courses.map((course) => (
-            <div key={course.id} className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-blue-600">
+            <div key={course.id} id={course.id} className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-blue-600 scroll-mt-24">
               <div className="flex flex-col md:flex-row gap-8">
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-4">
@@ -283,6 +307,12 @@ export default function Courses() {
                         <span className="text-gray-600">Duration: </span>
                         <span className="font-semibold text-gray-900">{course.duration}</span>
                       </div>
+                      {"price" in course && course.price && (
+                        <div className="mb-4">
+                          <span className="text-gray-600">Program price: </span>
+                          <span className="font-semibold text-gray-900">{course.price}</span>
+                        </div>
+                      )}
                       <div className="mb-4">
                         <h3 className="font-semibold text-gray-900 mb-2">Training Formats:</h3>
                         <div className="flex flex-wrap gap-2">
@@ -306,6 +336,14 @@ export default function Courses() {
               <div className="mt-6 pt-6 border-t border-gray-200">
                 <div className="flex flex-col sm:flex-row gap-4">
                   <CTAButton href="/enroll" text="Enroll Now" />
+                  {course.id === "basic-computer-job-search" && (
+                    <Link
+                      href="/course-curriculum#bcs-jse"
+                      className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    >
+                      View Full Course
+                    </Link>
+                  )}
                   {course.id === "qa-manual" && (
                     <a
                       href="https://gitsuniversity.org/courses/manual/"
@@ -313,7 +351,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "qa-automation" && (
@@ -323,7 +361,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "fullstack-sdet" && (
@@ -333,7 +371,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "api-testing" && (
@@ -343,7 +381,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More Info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "devops-testers" && (
@@ -353,7 +391,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More Info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "ai-qa" && (
@@ -363,7 +401,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More Info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "performance-tester" && (
@@ -373,7 +411,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More Info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "security-tester" && (
@@ -383,7 +421,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More Info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "508-compliance-tester" && (
@@ -393,7 +431,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More Info
+                      View Full Course
                     </a>
                   )}
                   {course.id === "digital-marketing" && (
@@ -403,7 +441,7 @@ export default function Courses() {
                       rel="noopener noreferrer"
                       className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 inline-block text-center border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                     >
-                      More Info
+                      View Full Course
                     </a>
                   )}
                 </div>

@@ -108,6 +108,10 @@ export default function CourseCurriculum() {
                       <span className="text-blue-600 mr-2 font-bold">5.</span>
                       <span>Install and safely manage software: trusted sources, install/uninstall apps (Zoom, Chrome, Adobe Reader, Office), avoid scams/malware, and security basics.</span>
                     </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2 font-bold">6.</span>
+                      <span>Use <strong>browser configs</strong>: set up and manage bookmarks, default search, security and privacy settings, and safe browsing for job search and daily use.</span>
+                    </li>
                   </ul>
                 </section>
 
@@ -160,6 +164,7 @@ export default function CourseCurriculum() {
                       details: [
                         "Find and connect to Wi‑Fi; understand network name and password.",
                         "Open Settings (Windows) or System Preferences (Mac); explore display, sound, and language.",
+                        "Browser configs: open the default browser (Chrome, Edge, or Safari); find basic settings (home page, default search engine).",
                         "Check battery/power status and charging.",
                         "Restart the computer and understand when to restart.",
                         "Check for and install updates (overview); understand storage (hard drive space).",
@@ -296,9 +301,10 @@ export default function CourseCurriculum() {
                       details: [
                         "Create a professional email account (Gmail/Outlook) if needed; sign in and out.",
                         "Compose, send, and reply to an email; add subject and attachment (e.g., resume).",
+                        "Browser configs: set up bookmarks for job sites (Indeed, LinkedIn); organize a “Job Search” folder in bookmarks.",
                         "Search for jobs on Indeed: keywords, location, filters.",
                         "Search for jobs on LinkedIn (basic); browse company career pages.",
-                        "Bookmark 2–3 job links; write down company name and job title.",
+                        "Safe browsing: recognize secure sites (https), avoid clicking suspicious links in job ads.",
                       ],
                       deliverables: [
                         "Able to sign in to email and send one email with a subject line.",
@@ -330,6 +336,7 @@ export default function CourseCurriculum() {
                       details: [
                         "Identify trusted sources: official app store (Microsoft Store, Mac App Store) or official websites.",
                         "Download and install one app (e.g., Zoom, Chrome, or Adobe Reader) from a trusted source.",
+                        "Browser configs: security and privacy settings (passwords, autofill, cookies); managing or disabling extensions; clearing browsing data when needed.",
                         "Uninstall an app (Settings > Apps / Applications).",
                         "Recognize common scams: fake pop‑ups, “tech support” calls, phishing emails; never share passwords.",
                         "Set a strong password; turn on two‑factor authentication for email (overview).",
@@ -382,6 +389,18 @@ export default function CourseCurriculum() {
                     </svg>
                     Print / Save as PDF
                   </button>
+                  <a
+                    href="https://gitsuniversity.org/practice/examples/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-lg font-semibold border-2 border-gray-700 text-gray-700 bg-white hover:bg-gray-50 transition"
+                    aria-label="Open Final Exam practice examples in new tab"
+                  >
+                    <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Final Exam
+                  </a>
                 </div>
               </div>
             </div>
